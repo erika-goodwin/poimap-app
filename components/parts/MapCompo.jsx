@@ -1,13 +1,10 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import { Loader } from "@googlemaps/js-api-loader";
 
-import { connectToDatabase } from "../../util/mongodb";
-
 function MapCompo({ movies }) {
+  const [map, setMap] = useState(null);
   const [state, setState] = useState({
     defaultCenter: {
-      // lat: -34.397,
-      // lng: 150.644,
       lat: 36.1774465,
       lng: -86.7042552,
     },
@@ -35,36 +32,119 @@ function MapCompo({ movies }) {
     ],
   });
 
-  let map, infoWindow;
+  // let map, infoWindow;
 
   const googlemap = useRef(null);
-  useEffect(() => {
+  useEffect((defaultCenter) => {
     const loader = new Loader({
       apiKey: process.env.NEXT_PUBLIC_MAP_API_KEY,
-      // version: "weekly",
+      version: "weekly",
+      libraries: ["places"],
     });
-    loader.load().then(() => {
-      map = new google.maps.Map(googlemap.current, {
-        center: { lat: -34.397, lng: 150.644 },
-        zoom: 8,
-        mapTypeControl: false,
+    loader
+      .load()
+      .then((defaultCenter) => {
+        const map = new google.maps.Map(googlemap.current, {
+          center: defaultCenter,
+          zoom: 8,
+          mapTypeControl: false,
+        });
+
+        return map;
+      })
+      .then((mapObj) => {
+        setMap(mapObj);
+
+        // ====search box==========================================
+        // Create the search box and link it to the UI element.
+        const input = document.getElementById("pac-input");
+        const searchBox = new google.maps.places.SearchBox(input);
+
+        mapObj?.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+        console.log("map", map);
+        // Bias the SearchBox results towards current map's viewport.
+        mapObj?.addListener("bounds_changed", () => {
+          searchBox.setBounds(mapObj.getBounds());
+        });
+
+        let markers = [];
+
+        // Listen for the event fired when the user selects a prediction and retrieve
+        // more details for that place.
+        searchBox.addListener("places_changed", () => {
+          const places = searchBox.getPlaces();
+
+          if (places.length == 0) {
+            return;
+          }
+
+          // Clear out the old markers.
+          markers.forEach((marker) => {
+            marker.setMap(null);
+          });
+          markers = [];
+
+          // For each place, get the icon, name and location.
+          const bounds = new google.maps.LatLngBounds();
+
+          places.forEach((place) => {
+            if (!place.geometry || !place.geometry.location) {
+              console.log("Returned place contains no geometry");
+              return;
+            }
+
+            const icon = {
+              url: place.icon,
+              size: new google.maps.Size(71, 71),
+              origin: new google.maps.Point(0, 0),
+              anchor: new google.maps.Point(17, 34),
+              scaledSize: new google.maps.Size(25, 25),
+            };
+
+            // Create a marker for each place.
+            markers.push(
+              new google.maps.Marker({
+                mapObj,
+                icon,
+                title: place.name,
+                position: place.geometry.location,
+              })
+            );
+            if (place.geometry.viewport) {
+              // Only geocodes have viewport.
+              bounds.union(place.geometry.viewport);
+            } else {
+              bounds.extend(place.geometry.location);
+            }
+          });
+          mapObj.fitBounds(bounds);
+        });
       });
+  }, []);
+
+  const getLatLngEvent = () => {
+    // // Create the initial InfoWindow.
+    let infoWindow = new google.maps.InfoWindow({
+      content: "Click the map to get Lat/Lng!",
+      position: myLatlng,
     });
-  });
+    // infoWindow.open(map);
+    // Configure the click listener.
+    map.addListener("click", (mapsMouseEvent) => {
+      // // Close the current InfoWindow.
+      // infoWindow.close();
+      // Create a new InfoWindow.
+      infoWindow = new google.maps.InfoWindow({
+        position: mapsMouseEvent.latLng,
+      });
+      infoWindow.setContent(
+        JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
+      );
+      // infoWindow.open(map);
+    });
+  };
 
-  // function initMap() {
-  // const { defaultCenter } = state;
-  // map = new google.maps.Map(document.getElementById("google-map"), {
-  //   center: defaultCenter,
-  //   zoom: 8,
-  //   mapTypeControl: false,
-  //   // mapTypeControlOptions: {
-  //   //   style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
-  //   // },
-  // });
-  // }
-
-  const handleDrawMarkers = () => {
+  const handleDrawMarkers = useCallback(() => {
     const { markers } = state;
     const bounds = new google.maps.LatLngBounds();
     console.log(bounds);
@@ -77,9 +157,9 @@ function MapCompo({ movies }) {
 
         bounds.extend(marker);
       });
-    map.fitBounds(bounds);
-    map.panToBounds(bounds);
-  };
+    map?.fitBounds(bounds);
+    map?.panToBounds(bounds);
+  }, [map, state]);
 
   useEffect(() => {
     let timer = setTimeout(() => {
@@ -88,57 +168,43 @@ function MapCompo({ movies }) {
     return () => {
       clearTimeout(timer);
     };
-  }, []);
+  }, [handleDrawMarkers]);
 
   return (
     <>
       <div className="styledMap relative ?">
-        {/* {movies.map((movie) => (
+        {/* <div style={{ backgroundColor: 'white', padding: '50px', zIndex: '9999', position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%,-50%)'}}>
+        <h1>Movies</h1>
+        {movies.map((movie) => (
           <li key={movie.title}>
-            <h2>{movie.title}</h2>
-            <h3>{movie.metacritic}</h3>
-            <p>{movie.plot}</p>
+            <h2>Title: {movie.title}</h2>
+            <h3>Critic: {movie.metacritic}</h3>
+            <p>Plot: {movie.plot}</p>
           </li>
-        ))} */}
+        ))}
+      </div> */}
+
         <div id="google-map" ref={googlemap} className="w-screen h-screen " />
-        <div className="z-20 absolute top-3 left-5 w-full">
+        {/* <div className="z-20 absolute top-3 left-5 w-full ?"> */}
+        <div className="w-full">
           <form>
+            <input
+              id="pac-input"
+              className="bg-white mt-4 ml-4 w-2/3 h-auto text-lg p-2 "
+            ></input>
+          </form>
+          {/* <form>
             <input
               id="pac-input"
               className="shadow appearance-none border rounded w-2/3 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
               placeholder="Search"
             />
-          </form>
+          </form> */}
         </div>
       </div>
     </>
   );
 }
 
-// function loadScript(url) {
-//   var index = window.document.getElementsByTagName("script")[0];
-//   var script = window.document.createElement("script");
-//   script.src = url;
-//   script.async = true;
-//   script.defer = true;
-//   index.parentNode.insertBefore(script, index);
-// }
-
 export default MapCompo;
-
-// export async function getServerSideProps() {
-//   console.log("getServerSideProps()");
-//   const { db } = await connectToDatabase();
-//   const movies = await db
-//     .collection("movies")
-//     .find({})
-//     .sort({ metacritic: -1 })
-//     .limit(20)
-//     .toArray();
-//   return {
-//     props: {
-//       movies: JSON.parse(JSON.stringify(movies)),
-//     },
-//   };
-// }

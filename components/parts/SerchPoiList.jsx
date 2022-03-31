@@ -1,6 +1,19 @@
 import Image from "next/image";
+import { useRouter } from "next/dist/client/router";
+import { useState } from "react";
 
 function SerchPoiList() {
+  const [searchInput, setSearchInput] = useState("");
+  const router = useRouter();
+
+  const search = () => {
+    router.push({
+      pathname: "/map",
+      query: {
+        queryKeyword: searchInput,
+      },
+    });
+  };
   return (
     <div className="bg-main-blue p-4">
       <div className="bg-white rounded-3xl p-2 font-confortaa">
@@ -23,10 +36,15 @@ function SerchPoiList() {
                 type="text"
                 placeholder="type here"
                 aria-label="Full name"
+                value={searchInput}
+                onChange={(e) => {
+                  setSearchInput(e.target.value);
+                }}
               ></input>
               <button
                 className="flex-shrink-0 bg-dark-gray hover:bg-main-blue text-sm border-4 text-white py-1 px-2 rounded"
                 type="button"
+                onClick={search}
               >
                 Search
               </button>

@@ -1,11 +1,13 @@
 import Footer from "../parts/Footer";
 import MapNav from "../parts/MapNav";
-import Nav from "../parts/Nav";
+import MapTopMenu from "../parts/MapTopMenu";
+import MapBox from "../parts/MapBox";
 
 function nestedMapLayout({ children }) {
   return (
     <>
       <MapNav />
+      <MapBox />
       <main>{children}</main>
     </>
   );

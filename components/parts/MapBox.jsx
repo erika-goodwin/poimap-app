@@ -5,7 +5,7 @@ import getCenter from "geolib/es/getCenter";
 import getCenterOfBounds from "geolib/es/getCenterOfBounds";
 
 function MapBox({ dataList }) {
-  const [selectedLocation, setSelectedLocation] = useState(false);
+  const [selectedLocation, setSelectedLocation] = useState({});
   console.log("selectedLocation", selectedLocation);
 
   const coordinates = [];
@@ -43,10 +43,11 @@ function MapBox({ dataList }) {
             // offsetLeft={-20}
             offsetTop={-10}
           >
+            {console.log(">>> Marker render ")}
             <p
               role="img"
               onClick={() => {
-                setSelectedLocation(true);
+                setSelectedLocation(result);
               }}
               className="text-2xl cursor-pointer animate-bounce"
               aria-label="push-pin"
@@ -55,14 +56,13 @@ function MapBox({ dataList }) {
             </p>
           </Marker>
 
-          {selectedLocation && (
+          {selectedLocation.name === result.name && (
             <Popup
-              onClose={() => setSelectedLocation(false)}
-              // closeOnClick={true}
+              // onClose={() => setSelectedLocation(false)}
               longitude={result.long}
               latitude={result.lat}
-
             >
+              {console.log(">>> Popup render ")}
               {result.name}
             </Popup>
           )}
@@ -73,6 +73,7 @@ function MapBox({ dataList }) {
 
   return (
     <section className="w-full h-screen z-0 ">
+      {console.log("> sectiion top render ")}
       <Map
         {...viewState}
         onMove={(evt) => setViewState(evt.viewState)}
@@ -80,8 +81,10 @@ function MapBox({ dataList }) {
         mapboxAccessToken={process.env.mapbox_key}
         style={{ width: "100%", height: "100%" }}
       >
+        {console.log(">> Map render ")}
         {pinList.map((result) => (
           <div key={result.name} className="?">
+            {console.log(">> pinList render ")}
             {markers}
           </div>
         ))}

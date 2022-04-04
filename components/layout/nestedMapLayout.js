@@ -7,7 +7,7 @@ function nestedMapLayout({ children }) {
   return (
     <>
       <MapNav />
-      <MapBox />
+
       <main>{children}</main>
     </>
   );

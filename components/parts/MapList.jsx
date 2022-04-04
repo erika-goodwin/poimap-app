@@ -1,24 +1,44 @@
 import Image from "next/image";
+import { useState, useRef, useEffect } from "react";
 import MapListCard from "./MapListCard";
+import { useOnClickOutside } from "../../tool/useOnClickOutside";
 
 function MapList({ dataList }) {
-  console.log("MapList // data ", dataList);
+  const [showingAllList, setShowingAllList] = useState(false);
+  // console.log("MapList // data ", dataList);
 
-  const exArray = ["one", "two", "three", "four", "five"];
+  const node = useRef();
+  useOnClickOutside(node, () => setShowingAllList(false));
+
+  useEffect(() => {
+    // console.log("showingAllList: ", showingAllList);
+  });
 
   return (
-    <div className="bg-transparent p-4 absolute top-3/4 w-full">
+    <div className="bg-transparent p-4 absolute bottom-3 w-full">
       <div className="bg-white rounded-3xl p-2 font-confortaa">
         <div>
           <h2 className="p-5 font-lato font-medium text-2xl">PIO List</h2>
         </div>
-        {dataList?.map((item) => {
-          <MapListCard key={item._id} item={item} />;
-        })}
 
-        {exArray?.map((item) => {
-          <h1>{item}</h1>;
-        })}
+        {showingAllList ? (
+          dataList?.map((item) => {
+            return <MapListCard key={item._id} item={item} />;
+          })
+        ) : (
+          <>
+            <MapListCard item={dataList[0]} />
+          </>
+        )}
+
+        <button
+          onClick={() => {
+            setShowingAllList(!showingAllList);
+          }}
+          className="w-full text-center my-2"
+        >
+          {showingAllList ? "Show less" : " Show more"}
+        </button>
       </div>
     </div>
   );

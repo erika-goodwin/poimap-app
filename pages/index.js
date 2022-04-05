@@ -1,7 +1,7 @@
-import HowItWorks from "../components/parts/HowItWorks";
+import HowItWorks from "../components/parts/index/HowItWorks";
 import NestedLayout from "../components/layout/nestedLayout";
-import LineUpList from "../components/parts/LineUpList";
-import TopMenu from "../components/parts/TopMenu";
+import LineUpList from "../components/parts/index/LineUpList";
+import TopMenu from "../components/parts/share/TopMenu";
 
 export default function Home() {
   return (

@@ -12,6 +12,7 @@
     "@badrap/bar-of-progress": "^0.1.2",
     "@googlemaps/js-api-loader": "^1.13.9",
     "@googlemaps/react-wrapper": "^1.1.27",
+    "axios": "^0.26.1",
     "dotenv": "^16.0.0",
     "geolib": "^3.3.3",
     "mapbox-gl": "^2.7.1",

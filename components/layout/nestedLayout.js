@@ -1,6 +1,6 @@
-import Footer from "../parts/Footer";
-import Header from "../parts/Header";
-import Nav from "../parts/Nav";
+import Footer from "../parts/share/Footer";
+import Header from "../parts/share/Header";
+import Nav from "../parts/share/Nav";
 
 function nestedLayout({ children }) {
   return (

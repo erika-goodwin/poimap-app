@@ -39,7 +39,10 @@ function Nav() {
               <div className="p-2 text-center transition hover:bg-light-blue hover:ease-in-out">
                 <Link href="/list">List</Link>
               </div>
-              <div className="p-2 text-center transition hover:bg-light-blue hover:ease-in-out">
+              <div
+                onClick={(cur) => setIsOpen(!cur)}
+                className="p-2 text-center transition hover:bg-light-blue hover:ease-in-out"
+              >
                 <Link href="/map">Map</Link>
               </div>
             </div>

@@ -1,18 +1,14 @@
-import Image from "next/image";
-import { useState, useRef, useEffect } from "react";
+
+import { useState, useRef } from "react";
+
+import { useOnClickOutside } from "../../../../tool/useOnClickOutside";
 import MapListCard from "./MapListCard";
-import { useOnClickOutside } from "../../tool/useOnClickOutside";
 
 function MapList({ dataList }) {
   const [showingAllList, setShowingAllList] = useState(false);
-  // console.log("MapList // data ", dataList);
 
   const node = useRef();
   useOnClickOutside(node, () => setShowingAllList(false));
-
-  useEffect(() => {
-    // console.log("showingAllList: ", showingAllList);
-  });
 
   return (
     <div className="bg-transparent p-4 absolute bottom-3 w-full">

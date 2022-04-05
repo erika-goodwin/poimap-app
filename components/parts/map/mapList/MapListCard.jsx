@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 
-import MapListCardNested from "./MapListCardNested";
+import MapListCardNested from "../mapList/MapListCardNested";
 
 function MapListCard({ item }) {
   // console.log("MapListCard // item ", item);

@@ -1,8 +1,8 @@
-import MapTopMenu from "../components/parts/MapTopMenu";
+import MapTopMenu from "../components/parts/map/parts/MapTopMenu";
 import NestedMapLayout from "../components/layout/nestedMapLayout";
-import MapAddingNewList from "../components/parts/MapAddingNewList";
-import MapList from "../components/parts/MapList";
-import MapBox from "../components/parts/MapBox";
+import MapAddingNewList from "../components/parts/map/MapCreateNewList";
+import MapList from "../components/parts/map/mapList/MapList";
+import MapBox from "../components/parts/map/mapbox/MapBox";
 
 import { connectToDatabase } from "../util/mongodb";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -10,7 +10,7 @@ import { useRouter } from "next/dist/client/router";
 import { useState } from "react";
 
 function Map({ datas }) {
-  const [showCreate, setShowCreate] = useState(false);
+  const [showCreateList, setShowCreateList] = useState(false);
   const [showList, setShowList] = useState(true);
 
   const router = useRouter();
@@ -19,8 +19,8 @@ function Map({ datas }) {
   return (
     <>
       <MapBox dataList={datas} />
-      <MapTopMenu setShowCreate={setShowCreate} setShowList={setShowList} />
-      {showCreate && <MapAddingNewList />}
+      <MapTopMenu setShowCreateList={setShowCreateList} setShowList={setShowList} />
+      {showCreateList && <MapAddingNewList />}
       {showList && <MapList dataList={datas} />}
     </>
   );

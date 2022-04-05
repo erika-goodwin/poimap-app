@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useRouter } from "next/router";
 
 function TopMenu({ data }) {
@@ -16,13 +17,13 @@ function TopMenu({ data }) {
               type="button"
               className="w-1/4 px-3 py-1.5 border border-transparent text-xs font-medium rounded-full shadow-sm text-black hover:text-white bg-pure-pink hover:bg-pure-pink  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:bg-pure-pink"
             >
-              List of POI
+              <Link href="/list">List of POI</Link>
             </button>
             <button
               type="button"
               className="w-1/4 px-3 py-1.5 border border-transparent text-xs font-medium rounded-full shadow-sm text-black hover:text-white  bg-off-pink hover:bg-pure-pink focus:outline-none focus:ring-2 focus:ring-offset-2 focus:bg-pure-pink"
             >
-              Map
+              <Link href="/map">Map</Link>
             </button>
             <button
               type="button"
@@ -32,7 +33,6 @@ function TopMenu({ data }) {
             </button>
           </div>
         </div>
-        
       </div>
     </div>
   );

@@ -1,7 +1,5 @@
-import Footer from "../parts/Footer";
-import MapNav from "../parts/MapNav";
-import MapTopMenu from "../parts/MapTopMenu";
-import MapBox from "../parts/MapBox";
+import MapNav from "../parts/map/parts/MapNav";
+
 
 function nestedMapLayout({ children }) {
   return (

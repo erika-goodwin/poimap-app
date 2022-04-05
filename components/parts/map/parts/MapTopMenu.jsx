@@ -1,15 +1,15 @@
 import { useRouter } from "next/router";
 
-function TopMenu({ setShowCreate, setShowList }) {
+function TopMenu({ setShowCreateList, setShowList }) {
   const router = useRouter();
   const currentPath = router.asPath;
 
   const handleCreate = () => {
-    setShowCreate(true);
+    setShowCreateList(true);
     setShowList(false);
   };
   const handleMap = () => {
-    setShowCreate(false);
+    setShowCreateList(false);
     setShowList(true);
   };
 

@@ -1,7 +1,7 @@
 import NestedLayout from "../components/layout/nestedLayout";
-import TopMenu from "../components/parts/TopMenu";
-import SignInBar from "../components/parts/SignInBar";
-import SerchPoiList from "../components/parts/SerchPoiList";
+import TopMenu from "../components/parts/share/TopMenu";
+import SignInBar from "../components/parts/list/SignInBar";
+import SerchPoiList from "../components/parts/list/SerchPoiList";
 
 export default function List() {
   return (

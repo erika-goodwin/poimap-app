@@ -2,7 +2,6 @@ import axios from "axios";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-
 function MapCreateNewList() {
   const [createMode, setCreateMode] = useState(true);
   const [listName, setListName] = useState("");
@@ -26,7 +25,7 @@ function MapCreateNewList() {
         },
       })
       .then((res) => {
-        res.json();
+        const data = res.json();
         console.log("Post data :", data);
 
         console.log(res.status);

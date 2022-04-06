@@ -9,6 +9,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import { useRouter } from "next/dist/client/router";
 import { useState } from "react";
 import Script from 'next/script'
+import MapBoxex from "../components/parts/map/mapbox/MapBoxEx";
 
 
 function Map({ datas }) {
@@ -20,7 +21,8 @@ function Map({ datas }) {
 
   return (
     <>
-      <MapBox dataList={datas} />
+      {/* <MapBox dataList={datas} /> */}
+      <MapBoxex dataList={datas} />
       <MapTopMenu setShowCreateList={setShowCreateList} setShowList={setShowList} />
       {showCreateList && <MapCreate />}
       {showList && <MapList dataList={datas} />}

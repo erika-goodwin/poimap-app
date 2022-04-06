@@ -39,16 +39,17 @@ function MapBoxex({ dataList }) {
       <MapGL
         ref={mapRef}
         {...viewport}
+        mapStyle="mapbox://styles/erika00g/cl1e7ojtv001f14mhb7bpu5q5"
+        mapboxAccessToken={process.env.mapbox_key}
         style={{ width: "100%", height: "100%" }}
-        onViewportChange={handleViewportChange}
-        mapboxAccessToken="pk.eyJ1IjoiZXJpa2EwMGciLCJhIjoiY2wxNzFidzFyNDF5ajNsbXVvem1sMWtlZSJ9.ByQ6vE5aCgN26lcOnWx10w"
+        // onMove={(evt) => setViewState(evt.viewState)}
+        onMove={handleViewportChange}
       >
-        {/* <Geocoder
+        <Geocoder
           mapRef={mapRef}
           onViewportChange={handleGeocoderViewportChange}
-          mapboxAccessToken="pk.eyJ1IjoiZXJpa2EwMGciLCJhIjoiY2wxNzFidzFyNDF5ajNsbXVvem1sMWtlZSJ9.ByQ6vE5aCgN26lcOnWx10w"
-          position="top-left"
-        /> */}
+          mapboxAccessToken={process.env.mapbox_key}
+        />
       </MapGL>
     </div>
   );

@@ -122,8 +122,8 @@ function MapBox({ dataList }) {
         mapStyle="mapbox://styles/erika00g/cl1e7ojtv001f14mhb7bpu5q5"
         mapboxAccessToken={process.env.mapbox_key}
         style={{ width: "100%", height: "100%" }}
-        onMove={(evt) => setViewState(evt.viewState)}
-        // onMove={handleViewportChange}
+        // onMove={(evt) => setViewState(evt.viewState)}
+        onMove={handleViewportChange}
       >
         {/* react-map-gl-geocoder ============================= */}
         <Geocoder

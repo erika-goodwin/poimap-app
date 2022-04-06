@@ -18,14 +18,21 @@ function MapListCard({ item }) {
             <h2 className="font-confortaa text-lg font-semibold">
               {item.title}
             </h2>
-            <p className="font-lato">{item.list.length} pins, Location</p>
+            <p className="font-lato">
+              {item.list.length ? item.list.length : 0} pins, Location
+            </p>
           </div>
         </div>
-        {showingNestedList ? (
-          <button className="w-10 text-2xl pr-3">&#x2227;</button>
+        {item.list.length ? (
+          showingNestedList ? (
+            <button className="w-10 text-2xl pr-3">&#x2227;</button>
+          ) : (
+            <button className="w-10 text-2xl pr-3">&#x2228;</button>
+          )
         ) : (
-          <button className="w-10 text-2xl pr-3">&#x2228;</button>
+          ''
         )}
+       
       </div>
       {showingNestedList &&
         item.list.map((item) => (

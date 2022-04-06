@@ -1,6 +1,6 @@
 import MapTopMenu from "../components/parts/map/parts/MapTopMenu";
 import NestedMapLayout from "../components/layout/nestedMapLayout";
-import MapAddingNewList from "../components/parts/map/MapCreateNewList";
+import MapCreate from "../components/parts/map/MapCreate";
 import MapList from "../components/parts/map/mapList/MapList";
 import MapBox from "../components/parts/map/mapbox/MapBox";
 
@@ -8,6 +8,8 @@ import { connectToDatabase } from "../util/mongodb";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { useRouter } from "next/dist/client/router";
 import { useState } from "react";
+import Script from 'next/script'
+
 
 function Map({ datas }) {
   const [showCreateList, setShowCreateList] = useState(false);
@@ -20,7 +22,7 @@ function Map({ datas }) {
     <>
       <MapBox dataList={datas} />
       <MapTopMenu setShowCreateList={setShowCreateList} setShowList={setShowList} />
-      {showCreateList && <MapAddingNewList />}
+      {showCreateList && <MapCreate />}
       {showList && <MapList dataList={datas} />}
     </>
   );
@@ -31,6 +33,8 @@ Map.getLayout = function getLayout(page) {
   return (
     <layout>
       <NestedMapLayout>{page}</NestedMapLayout>
+      <Script src='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js'></Script>
+      <Script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js" />
     </layout>
   );
 };

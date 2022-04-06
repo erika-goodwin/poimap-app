@@ -1,4 +1,6 @@
-function MapCreateNewList(handleSubmitTitle, listName, setListName) {
+
+
+function MapCreateNewPin() {
   return (
     <>
       <div className="">
@@ -10,7 +12,7 @@ function MapCreateNewList(handleSubmitTitle, listName, setListName) {
                 className=" border rounded border-dark-gray hover:border-main-blue active:border-main-blue bg-transparent w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
                 type="text"
                 placeholder="Title"
-                vdalue={listName}
+                value={listName}
                 onChange={(e) => setListName(e.target.value)}
                 // aria-label="Full name"
               ></input>
@@ -31,4 +33,4 @@ function MapCreateNewList(handleSubmitTitle, listName, setListName) {
   );
 }
 
-export default MapCreateNewList;
+export default MapCreateNewPin;

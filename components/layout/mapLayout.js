@@ -1,5 +1,6 @@
 import Head from "next/head";
 // import styles from "../styles/Home.module.css";
+import { UserProvider } from "@auth0/nextjs-auth0";
 
 function layout({ children }) {
   return (
@@ -10,7 +11,9 @@ function layout({ children }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <body>{children}</body>
+      <body>
+        <UserProvider>{children}</UserProvider>
+      </body>
     </>
   );
 }

@@ -20,20 +20,18 @@ function MyApp({ Component, pageProps }) {
   const getLayout = Component.getLayout || ((page) => page);
 
   return getLayout(
-    <UserProvider>
+
       <Component {...pageProps} />
-    </UserProvider>
+
   );
 }
 
 export default MyApp;
 
-// export default function App({ Component, pageProps }) {
+// export default function MyApp({ Component, pageProps }) {
 //   return (
 //     <UserProvider>
-//       <Layout>
-//         <Component {...pageProps} />
-//       </Layout>
+//       <Component {...pageProps} />
 //     </UserProvider>
 //   );
 // }

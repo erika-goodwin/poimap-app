@@ -2,6 +2,8 @@ import "../styles/globals.css";
 import ProgressBar from "@badrap/bar-of-progress";
 import { Router } from "next/router";
 
+import { UserProvider } from "@auth0/nextjs-auth0";
+
 const progress = new ProgressBar({
   size: 4,
   color: "#fff",
@@ -17,7 +19,21 @@ function MyApp({ Component, pageProps }) {
   // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout || ((page) => page);
 
-  return getLayout(<Component {...pageProps} />);
+  return getLayout(
+    <UserProvider>
+      <Component {...pageProps} />
+    </UserProvider>
+  );
 }
 
 export default MyApp;
+
+// export default function App({ Component, pageProps }) {
+//   return (
+//     <UserProvider>
+//       <Layout>
+//         <Component {...pageProps} />
+//       </Layout>
+//     </UserProvider>
+//   );
+// }

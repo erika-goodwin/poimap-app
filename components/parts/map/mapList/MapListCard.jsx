@@ -1,15 +1,15 @@
 import { useState, useRef, useEffect } from "react";
 
-import MapListCardNested from "../mapList/MapListCardNested";
+import MapListCardNested from "./MapListListCard";
 
-function MapListCard({ item }) {
+function MapListCard({ item, setClickedList }) {
   // console.log("MapListCard // item ", item);
   const [showingNestedList, setShowingNestedList] = useState(false);
   const [pickedNestedList, setPickedNestedList] = useState("");
   return (
     <div className="p-2 cursor-pointer ">
       <div
-        onClick={() => setShowingNestedList(!showingNestedList)}
+        onClick={() => setClickedList(item)}
         className=" flex border border-cream-yellow rounded-md hover:shadow-md transition duration-200 ease-out"
       >
         <div className="w-full mb-2 p-1 flex items-center ">
@@ -34,10 +34,10 @@ function MapListCard({ item }) {
         )}
        
       </div>
-      {showingNestedList &&
+      {/* {showingNestedList &&
         item.list.map((item) => (
           <MapListCardNested item={item} key={item.name} />
-        ))}
+        ))} */}
     </div>
   );
 }

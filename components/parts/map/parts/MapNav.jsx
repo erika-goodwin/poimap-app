@@ -9,7 +9,7 @@ function Nav() {
 
   return (
     <>
-      <nav className="bg-transparent  fixed top-0 w-full z-10 border-0  p-5 ">
+      <nav className="bg-transparent  fixed top-0 w-full z-10 border-0 px-5 pt-2">
         <div className="flex justify-between">
           <div className=" ">
             <Link href="/" passHref>

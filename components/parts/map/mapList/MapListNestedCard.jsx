@@ -1,12 +1,12 @@
 import { useState, useRef, useEffect } from "react";
 
-function MapListCardNested({ item }) {
+function MapListNestedCard({ item }) {
   // console.log("MapListCardNested // item ", item);
   const [showingList, setShowingList] = useState(false);
   return (
     <>
       <div className="">
-        <div className="w-auto mt-2 ml-10 p-1 items-center border border-cream-yellow rounded-md">
+        <div className="w-auto mt-2 ml-10 p-1 items-center border border-cream-yellow rounded-md cursor-pointer">
           <div className="w-full p-2 pl-5">
             <h2
               onClick={() => setShowingList(true)}
@@ -22,4 +22,4 @@ function MapListCardNested({ item }) {
   );
 }
 
-export default MapListCardNested;
+export default MapListNestedCard;

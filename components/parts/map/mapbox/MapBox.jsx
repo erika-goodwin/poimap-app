@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef } from "react";
-import Map, { Marker, Popup } from "react-map-gl";
+import ReactMapGL, { Marker, Popup } from "react-map-gl";
 import getCenterOfBounds from "geolib/es/getCenterOfBounds";
 import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import Geocoder from "react-map-gl-geocoder";
@@ -53,6 +53,7 @@ function MapBox({ dataList }) {
   const coordinates = [];
   const pinList = [];
 
+  const geocoderContainerRef = useRef();
   const mapRef = useRef();
 
   const list = dataList?.map((result) => {
@@ -77,7 +78,7 @@ function MapBox({ dataList }) {
     zoom: 11,
   });
 
-  //react-map-gl-geocoder ===============================
+  // //react-map-gl-geocoder ===============================
   const handleViewportChange = useCallback(
     (newViewport) => setViewState(newViewport),
     []
@@ -94,7 +95,7 @@ function MapBox({ dataList }) {
     },
     [handleViewportChange]
   );
-  //react-map-gl-geocoder =============================
+  // //react-map-gl-geocoder =============================
 
   //@mapbox/mapbox-gl-geocoder =============================
   // mapboxgl.accessToken = process.env.mapbox_key;
@@ -116,22 +117,36 @@ function MapBox({ dataList }) {
       {/* @mapbox/mapbox-gl-geocoder ============================= */}
       {/* <div id="map"></div> */}
       {/* @mapbox/mapbox-gl-geocoder ============================= */}
-      <Map
+
+      <div
+        ref={geocoderContainerRef}
+        // style={{ position: "absolute", top: 200, left: 20, zIndex: 1 }}
+      />
+      <ReactMapGL
         ref={mapRef}
         {...viewState}
         mapStyle="mapbox://styles/erika00g/cl1e7ojtv001f14mhb7bpu5q5"
-        mapboxAccessToken={process.env.mapbox_key}
-        style={{ width: "100%", height: "100%" }}
-        // onMove={(evt) => setViewState(evt.viewState)}
-        onMove={handleViewportChange}
+        mapboxApiAccessToken={process.env.mapbox_key}
+        // style={{ position: "absolute", width: "100%", height: "100%" }}
+        width="100%"
+        height="100%"
+        onViewportChange={handleViewportChange}
       >
         {/* react-map-gl-geocoder ============================= */}
         <Geocoder
           mapRef={mapRef}
+          onViewportChange={handleGeocoderViewportChange}
+          mapboxApiAccessToken={process.env.mapbox_key}
+          position="top-left"
+          // style={{ position: "absolute", top: '150px !important'}}
+        />
+        {/* <Geocoder
+          mapRef={mapRef}
           onMove={handleGeocoderViewportChange}
           mapboxAccessToken={process.env.mapbox_key}
-          // position="top-left"
-        />
+          // mapboxApiAccessToken={process.env.mapbox_key}
+          position="top-left"
+        /> */}
         {/* react-map-gl-geocoder ============================= */}
         {pinList.map((pin, index) => (
           <Pin
@@ -141,7 +156,7 @@ function MapBox({ dataList }) {
             setSelectedPin={setSelectedPin}
           />
         ))}
-      </Map>
+      </ReactMapGL>
     </div>
   );
 }

@@ -3,6 +3,7 @@ import NestedLayout from "../components/layout/nestedLayout";
 import LineUpList from "../components/parts/index/LineUpList";
 import TopMenu from "../components/parts/share/TopMenu";
 
+
 export default function Home() {
   return (
     <>
@@ -13,11 +14,11 @@ export default function Home() {
   );
 }
 
-
 Home.getLayout = function getLayout(page) {
   return (
-    <layout>
-      <NestedLayout>{page}</NestedLayout>
-    </layout>
-  )
-}
+      <layout>
+        <NestedLayout>{page}</NestedLayout>
+      </layout>
+
+  );
+};

@@ -1,53 +1,12 @@
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import ReactMapGL, { Marker, Popup } from "react-map-gl";
 import getCenterOfBounds from "geolib/es/getCenterOfBounds";
 import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import Geocoder from "react-map-gl-geocoder";
-import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import "mapbox-gl/dist/mapbox-gl.css";
-import mapboxgl from "mapbox-gl"; // or "const mapboxgl = require('mapbox-gl');"
-import { useEffect } from "react/cjs/react.development";
-
-function Pin({ pin, selectedPin, setSelectedPin }) {
-  const [showPopup, setShowPopup] = useState(false);
-
-  return (
-    <>
-      <Marker
-        longitude={pin.long}
-        latitude={pin.lat}
-        offsetTop={-10}
-        onClick={(e) => {
-          e.preventDefault;
-          setSelectedPin(pin);
-          setShowPopup(true);
-        }}
-      >
-        <p
-          role="img"
-          className="text-2xl cursor-pointer animate-bounce"
-          aria-label="push-pin"
-        >
-          📍
-        </p>
-      </Marker>
-
-      {showPopup && selectedPin?.name === pin.name && (
-        <Popup
-          longitude={pin.long}
-          closeOnClick={false}
-          latitude={pin.lat}
-          offset={20}
-          anchor="bottom"
-          onClose={() => setShowPopup(false)}
-        >
-          {pin.name}
-        </Popup>
-      )}
-    </>
-  );
-}
+import Pin from "./Pin";
+import SearchingPin from "./SearchingPin";
 
 function MapBox({ dataList }) {
   const [selectedPin, setSelectedPin] = useState(null);
@@ -105,26 +64,26 @@ function MapBox({ dataList }) {
       latitude: data.geometry.coordinates[1],
     };
     const placeNameAddress = data.place_name;
-    const placeCategory = data.properties.category?.text;
+    // const placeCategory = data.properties.category?.text || null;
 
-    const placeNeighborhood = data.context[0].text;
-    const placePostCord = data.context[1].text;
-    const placeCityName = data.context[2].text;
-    const placeAreaName = data.context[3].text;
-    const placeProvince = data.context[4].text;
-    const placeCountry = data.context[5].text;
+    // const placeNeighborhood = data.context[0].text;
+    // const placePostCord = data.context[1].text;
+    // const placeCityName = data.context[2].text ;
+    // const placeAreaName = data.context[3].text;
+    // const placeProvince = data.context[4].text;
+    // const placeCountry = data.context[5].text;
 
     setSearchedResult({
       coordinates,
-      placeCategory,
+      // placeCategory,
       placeNameAddress,
-      placeNeighborhood,
-      placePostCord,
-      placePostCord,
-      placeCityName,
-      placeAreaName,
-      placeProvince,
-      placeCountry,
+      // placeNeighborhood,
+      // placePostCord,
+      // placePostCord,
+      // placeCityName,
+      // placeAreaName,
+      // placeProvince,
+      // placeCountry,
     });
   };
 
@@ -157,11 +116,37 @@ function MapBox({ dataList }) {
           mapboxApiAccessToken={process.env.mapbox_key}
           position="top-left"
           // style={{ position: "absolute", top: '150px !important'}}
-          onResult={(res) => {
-            handleSearchedData(res);
-          }}
-      
+          onResult={(res) => handleSearchedData(res)}
+          clearAndBlurOnEsc={true}
         />
+        {searchedResult.coordinates && (
+          <>
+            <Marker
+              longitude={searchedResult.coordinates.longitude}
+              latitude={searchedResult.coordinates.latitude}
+              anchor="bottom"
+            >
+              <p
+                role="img"
+                className="text-2xl cursor-pointer animate-bounce"
+                aria-label="push-pin"
+              >
+                📌
+              </p>
+            </Marker>
+            <Popup
+              longitude={searchedResult.coordinates.longitude}
+              latitude={searchedResult.coordinates.latitude}
+              closeOnClick={false}
+              offset={20}
+              anchor="bottom"
+              onClose={() => setShowPopup(false)}
+            >
+              {searchedResult.placeNameAddress}
+            </Popup>
+          </>
+        )}
+
         {pinList.map((pin, index) => (
           <Pin
             pin={pin}

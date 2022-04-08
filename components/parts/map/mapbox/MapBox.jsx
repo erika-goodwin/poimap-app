@@ -7,6 +7,7 @@ import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 import mapboxgl from "mapbox-gl"; // or "const mapboxgl = require('mapbox-gl');"
+import { useEffect } from "react/cjs/react.development";
 
 function Pin({ pin, selectedPin, setSelectedPin }) {
   const [showPopup, setShowPopup] = useState(false);
@@ -50,6 +51,7 @@ function Pin({ pin, selectedPin, setSelectedPin }) {
 
 function MapBox({ dataList }) {
   const [selectedPin, setSelectedPin] = useState(null);
+  const [searchedResult, setSearchedResult] = useState({});
   const coordinates = [];
   const pinList = [];
 
@@ -96,6 +98,42 @@ function MapBox({ dataList }) {
     [handleViewportChange]
   );
 
+  const handleSearchedData = (res) => {
+    const data = res.result;
+    const coordinates = {
+      longitude: data.geometry.coordinates[0],
+      latitude: data.geometry.coordinates[1],
+    };
+    const placeNameAddress = data.place_name;
+    const placeCategory = data.properties.category?.text;
+
+    const placeNeighborhood = data.context[0].text;
+    const placePostCord = data.context[1].text;
+    const placeCityName = data.context[2].text;
+    const placeAreaName = data.context[3].text;
+    const placeProvince = data.context[4].text;
+    const placeCountry = data.context[5].text;
+
+    setSearchedResult({
+      coordinates,
+      placeCategory,
+      placeNameAddress,
+      placeNeighborhood,
+      placePostCord,
+      placePostCord,
+      placeCityName,
+      placeAreaName,
+      placeProvince,
+      placeCountry,
+    });
+  };
+
+  useEffect(() => {
+    if (searchedResult !== {}) {
+      console.log("searchedResult,", searchedResult);
+    }
+  }, [searchedResult]);
+
   return (
     <div className="w-full h-screen z-0 ">
       <div
@@ -119,7 +157,10 @@ function MapBox({ dataList }) {
           mapboxApiAccessToken={process.env.mapbox_key}
           position="top-left"
           // style={{ position: "absolute", top: '150px !important'}}
-          onResult={(res) => console.log("res", res)}
+          onResult={(res) => {
+            handleSearchedData(res);
+          }}
+      
         />
         {pinList.map((pin, index) => (
           <Pin

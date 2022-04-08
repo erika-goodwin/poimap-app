@@ -38,14 +38,14 @@ function Nav() {
 
   return (
     <>
-      {currentPath == "/map" ? (
-        <MapNav />
-      ) : (
+      {currentPath == "/" || currentPath == "/list" ? (
         <NavNested
           isOpened={isOpened}
           setIsOpen={setIsOpen}
           switchingBg={switchingBg}
         />
+      ) : (
+        <MapNav />
       )}
     </>
   );

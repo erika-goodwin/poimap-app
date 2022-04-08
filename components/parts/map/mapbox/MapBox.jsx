@@ -95,29 +95,9 @@ function MapBox({ dataList }) {
     },
     [handleViewportChange]
   );
-  // //react-map-gl-geocoder =============================
-
-  //@mapbox/mapbox-gl-geocoder =============================
-  // mapboxgl.accessToken = process.env.mapbox_key;
-  // const map = new mapboxgl.Map({
-  //   container: "map",
-  //   style: "mapbox://styles/erika00g/cl1e7ojtv001f14mhb7bpu5q5",
-  //   center: [center.longitude, center.latitude],
-  //   zoom: 11,
-  // });
-  // const geocoder = new MapboxGeocoder({
-  //   accessToken: process.env.mapbox_key,
-  //   mapboxgl: mapboxgl,
-  // });
-  // map.addControl(geocoder);
-  //@mapbox/mapbox-gl-geocoder =============================
 
   return (
     <div className="w-full h-screen z-0 ">
-      {/* @mapbox/mapbox-gl-geocoder ============================= */}
-      {/* <div id="map"></div> */}
-      {/* @mapbox/mapbox-gl-geocoder ============================= */}
-
       <div
         ref={geocoderContainerRef}
         // style={{ position: "absolute", top: 200, left: 20, zIndex: 1 }}
@@ -139,15 +119,8 @@ function MapBox({ dataList }) {
           mapboxApiAccessToken={process.env.mapbox_key}
           position="top-left"
           // style={{ position: "absolute", top: '150px !important'}}
+          onResult={(res) => console.log("res", res)}
         />
-        {/* <Geocoder
-          mapRef={mapRef}
-          onMove={handleGeocoderViewportChange}
-          mapboxAccessToken={process.env.mapbox_key}
-          // mapboxApiAccessToken={process.env.mapbox_key}
-          position="top-left"
-        /> */}
-        {/* react-map-gl-geocoder ============================= */}
         {pinList.map((pin, index) => (
           <Pin
             pin={pin}

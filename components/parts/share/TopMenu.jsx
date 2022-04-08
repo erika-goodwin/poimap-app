@@ -29,7 +29,8 @@ function TopMenu({ data }) {
               type="button"
               className="w-1/4  px-3 py-1.5 border border-transparent text-xs font-medium rounded-full shadow-sm text-black hover:text-white  bg-off-pink hover:bg-pure-pink focus:outline-none focus:ring-2 focus:ring-offset-2 focus:bg-pure-pink"
             >
-              Sign in
+              
+              <Link href="/sign-in">Sign in</Link>
             </button>
           </div>
         </div>

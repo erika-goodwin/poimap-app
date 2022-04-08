@@ -11,7 +11,7 @@ import { useState } from "react";
 import Script from "next/script";
 import MapBoxex from "../components/parts/map/mapbox/MapBoxEx";
 
-
+import { SignedIn } from "@clerk/nextjs";
 
 function Map({ datas }) {
   const [showCreateList, setShowCreateList] = useState(false);
@@ -35,16 +35,16 @@ function Map({ datas }) {
 }
 export default Map;
 
-Map.getLayout = function getLayout(page) {
-  return (
+// Map.getLayout = function getLayout(page) {
+//   return (
 
-    <layout>
-      <NestedMapLayout>{page}</NestedMapLayout>
-      <Script src="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js"></Script>
-      <Script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js" />
-    </layout>
-  );
-};
+//     <layout>
+//       <NestedMapLayout>{page}</NestedMapLayout>
+//       <Script src="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js"></Script>
+//       <Script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js" />
+//     </layout>
+//   );
+// };
 
 export async function getServerSideProps() {
   const { db } = await connectToDatabase();

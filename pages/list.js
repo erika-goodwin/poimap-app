@@ -14,12 +14,12 @@ export default function List() {
   );
 }
 
-List.getLayout = function getLayout(page) {
-  return (
+// List.getLayout = function getLayout(page) {
+//   return (
 
-      <layout>
-        <NestedLayout>{page}</NestedLayout>
-      </layout>
+//       <layout>
+//         <NestedLayout>{page}</NestedLayout>
+//       </layout>
 
-  );
-};
+//   );
+// };

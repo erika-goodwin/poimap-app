@@ -1,6 +1,14 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { UserButton } from "@clerk/clerk-react";
+import {
+  ClerkProvider,
+  SignedIn,
+  SignedOut,
+  RedirectToSignIn,
+  SignOutButton,
+} from "@clerk/nextjs";
 
 function Nav() {
   const [isOpened, setIsOpen] = useState(false);
@@ -18,7 +26,12 @@ function Nav() {
               </button>
             </Link>
           </div>
-          <div className="">
+          <div className="h-10 flex">
+            <SignedIn>
+              <div className=" pr-2 pt-1">
+                <UserButton />
+              </div>
+            </SignedIn>
             <button
               onClick={() => setIsOpen(!isOpened)}
               className="p-2 space-y-2 bg-white rounded shadow-2xl hover:shadow"

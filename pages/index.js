@@ -14,11 +14,11 @@ export default function Home() {
   );
 }
 
-Home.getLayout = function getLayout(page) {
-  return (
-      <layout>
-        <NestedLayout>{page}</NestedLayout>
-      </layout>
+// Home.getLayout = function getLayout(page) {
+//   return (
+//       <layout>
+//         <NestedLayout>{page}</NestedLayout>
+//       </layout>
 
-  );
-};
+//   );
+// };

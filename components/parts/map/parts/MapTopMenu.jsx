@@ -1,4 +1,9 @@
+import Link from "next/link";
 import { useRouter } from "next/router";
+import { ClerkProvider, SignedIn, SignedOut, RedirectToSignIn , SignOutButton} from '@clerk/nextjs'
+import { UserButton } from "@clerk/clerk-react";
+// import SignOutButton from "../../SignOutButton";
+
 
 function TopMenu({ setShowCreateList, setShowList }) {
   const router = useRouter();
@@ -31,12 +36,18 @@ function TopMenu({ setShowCreateList, setShowList }) {
           >
             Map
           </button>
-          <button
-            type="button"
-            className="w-1/4  px-3 py-1.5 border border-transparent text-xs font-medium rounded-full shadow-sm text-black hover:text-white  bg-soft-gray hover:bg-dark-gray focus:outline-none focus:ring-2 focus:ring-offset-2 focus:bg-dark-gray"
-          >
-            <a href="/api/auth/login">Sign in</a>
-          </button>
+
+          <SignedIn>
+            <SignOutButton className="w-1/4  px-3 py-1.5 border border-transparent text-xs font-medium rounded-full shadow-sm text-black hover:text-white  bg-soft-gray hover:bg-dark-gray focus:outline-none focus:ring-2 focus:ring-offset-2 focus:bg-dark-gray" />
+          </SignedIn>
+          <SignedOut>
+            <button
+              type="button"
+              className="w-1/4  px-3 py-1.5 border border-transparent text-xs font-medium rounded-full shadow-sm text-black hover:text-white  bg-soft-gray hover:bg-dark-gray focus:outline-none focus:ring-2 focus:ring-offset-2 focus:bg-dark-gray"
+            >
+              <Link href="/sign-in">Sign in</Link>
+            </button>
+          </SignedOut>
         </div>
       </div>
     </div>

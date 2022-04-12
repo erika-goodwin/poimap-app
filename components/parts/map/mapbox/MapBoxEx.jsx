@@ -9,6 +9,7 @@ import Geocoder from "react-map-gl-geocoder";
 // Ways to set Mapbox token: https://uber.github.io/react-map-gl/#/Documentation/getting-started/about-mapbox-tokens
 
 function MapBoxex({ dataList }) {
+  const [input] = useState("input");
   const [viewport, setViewport] = useState({
     latitude: 37.7577,
     longitude: -122.4376,
@@ -44,7 +45,6 @@ function MapBoxex({ dataList }) {
         width="100%"
         height="100%"
         onViewportChange={handleViewportChange}
-     
       >
         <Geocoder
           mapRef={mapRef}
@@ -52,6 +52,7 @@ function MapBoxex({ dataList }) {
           mapboxApiAccessToken={process.env.mapbox_key}
           position="top-left"
           style={{ position: "absolute", top: "50px" }}
+          inputValue={input}
         />
       </ReactMapGL>
     </div>

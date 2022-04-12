@@ -6,6 +6,7 @@ function MapListCard({ item, setClickedList }) {
   // console.log("MapListCard // item ", item);
   const [showingNestedList, setShowingNestedList] = useState(false);
   const [pickedNestedList, setPickedNestedList] = useState("");
+
   return (
     <div className="p-2 cursor-pointer ">
       <div
@@ -19,7 +20,7 @@ function MapListCard({ item, setClickedList }) {
               {item.title}
             </h2>
             <p className="font-lato">
-              {item.list.length ? item.list.length : 0} pins, Location
+              {item.list.length === 0 ? 0 : item.list.length} pins, Location
             </p>
           </div>
         </div>
@@ -30,14 +31,9 @@ function MapListCard({ item, setClickedList }) {
             <button className="w-10 text-2xl pr-3">&#x2228;</button>
           )
         ) : (
-          ''
+          ""
         )}
-       
       </div>
-      {/* {showingNestedList &&
-        item.list.map((item) => (
-          <MapListCardNested item={item} key={item.name} />
-        ))} */}
     </div>
   );
 }

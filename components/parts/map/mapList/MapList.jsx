@@ -10,6 +10,7 @@ function MapList({ dataList }) {
   const [clickedList, setClickedList] = useState({});
   // const checkEmptyclickedListect = clickedListect.entries(clickedList);
 
+
   const node = useRef();
   useOnClickOutside(node, () => setShowingAllList(false));
 

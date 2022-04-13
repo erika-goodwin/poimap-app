@@ -5,8 +5,6 @@ import axios from "axios";
 function MapListListCard({ item, setDataList }) {
   const [deleteName, setDeleteName] = useState("");
 
-  useEffect(() => console.log('UPDATED!!!'), [])
-
   useEffect(() => {
     const deleteHandler = async () => {
       const id = item._id;
@@ -27,35 +25,23 @@ function MapListListCard({ item, setDataList }) {
               }
               return true
             })
-
             return { ...itemList, list: filteredList }
           }
-
           return itemList
         });
 
       });
-      // setDataList((prev) => {
-      //   return prev.map((item) => {
-      //     if (item._id === id) {
-      //       return item.list.filter((subItem) => {
-      //         return subItem.name !== deleteName;
-      //       });
-      //     }
-      //     return item;
-      //   });
-      // });
 
-      // await axios
-      //   .post("/api/deletingOneOfList", deleteData)
-      //   .then((res) => {
-      //     console.log(res.status);
-      //     alert("Success");
-      //   })
-      //   .catch((error) => {
-      //     console.log(error);
-      //     alert("Failed to save");
-      //   });
+      await axios
+        .post("/api/deletingOneOfList", deleteData)
+        .then((res) => {
+          console.log(res.status);
+          alert("Success");
+        })
+        .catch((error) => {
+          console.log(error);
+          alert("Failed to save");
+        });
     };
 
     if (deleteName) {

@@ -12,7 +12,6 @@ function MapList({ dataList, setDataList }) {
   const node = useRef();
   useOnClickOutside(node, () => setShowingAllList(false));
 
-  useEffect(() => console.log('clickedList!!!', clickedList), [clickedList])
   useEffect(() => {
     if(Object.keys(clickedList).length > 0){
       const selectedList = dataList.find(list => list._id === clickedList._id)

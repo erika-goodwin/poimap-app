@@ -1,5 +1,3 @@
-import { useEffect } from 'react'
-
 import MapTopMenu from "../components/parts/map/parts/MapTopMenu";
 import NestedMapLayout from "../components/layout/nestedMapLayout";
 import MapCreate from "../components/parts/map/MapCreate";
@@ -20,15 +18,9 @@ function Map({ datas }) {
   const [showList, setShowList] = useState(true);
   const [dataList, setDataList] = useState(datas);
 
-  useEffect(() => {
-    console.log("MAIN LIST: ", dataList)
-  }, [dataList])
-
-
   const router = useRouter();
   const queryKeyword = router.query;
 
-  // console.log('dataList', datas)
   return (
     <>
       <MapBox dataList={dataList} />

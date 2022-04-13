@@ -2,8 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import MapListNestedCard from "./MapListNestedCard";
 import axios from "axios";
 
-function MapListListCard({ item, setData }) {
-  // console.log("MapListCardNested // item ", item);
+function MapListListCard({ item, setDataList }) {
   const [deleteName, setDeleteName] = useState("");
 
   useEffect(() => {
@@ -14,27 +13,30 @@ function MapListListCard({ item, setData }) {
 
       const deleteData = {
         id,
-        deletingName,
+        deletingName
       };
+
+      setDataList((prev) => {
+        return prev.map((itemList) => {
+          if(itemList._id === id){
+            const filteredList =  itemList.list.filter(item => {
+              if(item.name === deleteName){
+                return false
+              }
+              return true
+            })
+            return { ...itemList, list: filteredList }
+          }
+          return itemList
+        });
+
+      });
 
       await axios
         .post("/api/deletingOneOfList", deleteData)
         .then((res) => {
           console.log(res.status);
           alert("Success");
-          setData((prev) => {
-            return prev.map((item) => {
-              if (item._id === id) {
-                return item.list.filter((subItem) => {
-                  console.log("TTT", subItem.name);
-                  console.log("XXX", deleteName);
-                  return subItem.name !== deleteName;
-                });
-              }
-
-              return item;
-            });
-          });
         })
         .catch((error) => {
           console.log(error);

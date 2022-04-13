@@ -16,24 +16,23 @@ import { SignedIn } from "@clerk/nextjs";
 function Map({ datas }) {
   const [showCreateList, setShowCreateList] = useState(false);
   const [showList, setShowList] = useState(true);
-
-
-
+  const [dataList, setDataList] = useState(datas);
 
   const router = useRouter();
   const queryKeyword = router.query;
 
-  // console.log('dataList', datas)
   return (
     <>
-      <MapBox dataList={datas} />
+      <MapBox dataList={dataList} />
       {/* <MapBoxex dataList={datas} /> */}
       <MapTopMenu
         setShowCreateList={setShowCreateList}
         setShowList={setShowList}
       />
       {showCreateList && <MapCreate />}
-      {showList && <MapList dataList={datas} setShowList={setShowList} />}
+
+      {(showList && dataList) && <MapList dataList={dataList} setDataList={setDataList} />}
+
     </>
   );
 }

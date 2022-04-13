@@ -3,7 +3,7 @@ import Image from "next/image";
 function SignInBar() {
   return (
     <div className="bg-main-blue p-4 pb-10">
-      <div className="bg-soft-gray rounded-3xl p-2 font-confortaa">
+      <div className="bg-soft-gray rounded-3xl p-2 font-confortaa md:w-2/3 mx-auto lg:w-[43rem]">
         <div className="m-auto w-1/2 text-center flex justify-around items-center">
           <button
             type="button"

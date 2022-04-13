@@ -33,7 +33,7 @@ function Map({ datas }) {
         setShowList={setShowList}
       />
       {showCreateList && <MapCreate />}
-      {showList && <MapList dataList={datas} />}
+      {showList && <MapList dataList={datas} setShowList={setShowList} />}
     </>
   );
 }

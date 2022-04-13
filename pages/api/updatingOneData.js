@@ -2,6 +2,7 @@
 import { connectToDatabase, client } from "../../util/mongodb";
 
 export default async function updatingOneData(req, res) {
+
   if (req.method === "POST") {
     const { db } = await connectToDatabase();
 

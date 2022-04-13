@@ -35,10 +35,8 @@ export default function Document() {
           type="text/css"
         />
       </Head>
-      <body>
-        <Main />
-        <NextScript />
-      </body>
+      <Main />
+      <NextScript />
     </Html>
   );
 }

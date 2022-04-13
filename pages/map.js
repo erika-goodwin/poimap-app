@@ -17,9 +17,13 @@ function Map({ datas }) {
   const [showCreateList, setShowCreateList] = useState(false);
   const [showList, setShowList] = useState(true);
 
+
+
+
   const router = useRouter();
   const queryKeyword = router.query;
 
+  // console.log('dataList', datas)
   return (
     <>
       <MapBox dataList={datas} />
@@ -35,16 +39,7 @@ function Map({ datas }) {
 }
 export default Map;
 
-// Map.getLayout = function getLayout(page) {
-//   return (
 
-//     <layout>
-//       <NestedMapLayout>{page}</NestedMapLayout>
-//       <Script src="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js"></Script>
-//       <Script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js" />
-//     </layout>
-//   );
-// };
 
 export async function getServerSideProps() {
   const { db } = await connectToDatabase();

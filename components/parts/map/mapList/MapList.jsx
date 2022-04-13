@@ -8,8 +8,8 @@ import MapListListCard from "./MapListListCard";
 function MapList({ dataList }) {
   const [showingAllList, setShowingAllList] = useState(false);
   const [clickedList, setClickedList] = useState({});
+  const [dataListState, setDataListState] = useState(dataList);
   // const checkEmptyclickedListect = clickedListect.entries(clickedList);
-
 
   const node = useRef();
   useOnClickOutside(node, () => setShowingAllList(false));
@@ -45,7 +45,7 @@ function MapList({ dataList }) {
         </div>
         {JSON.stringify(clickedList) === "{}" ? (
           showingAllList ? (
-            dataList?.map((item) => {
+            dataListState?.map((item) => {
               return (
                 <MapListCard
                   key={item._id}
@@ -60,7 +60,7 @@ function MapList({ dataList }) {
             </>
           )
         ) : (
-          <MapListListCard item={clickedList} />
+          <MapListListCard item={clickedList} setData={setDataListState} />
         )}
 
         {JSON.stringify(clickedList) === "{}" ? (

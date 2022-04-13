@@ -7,7 +7,6 @@ import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 import Pin from "./Pin";
 
-
 import SearchPin from "./SearchPin";
 
 function MapBox({ dataList }) {
@@ -16,6 +15,8 @@ function MapBox({ dataList }) {
 
   const [selectedList, setSelectedList] = useState({});
 
+
+
   const [input] = useState("");
   const coordinates = [];
   const pinList = [];
@@ -23,20 +24,23 @@ function MapBox({ dataList }) {
   const geocoderContainerRef = useRef();
   const mapRef = useRef();
 
-  const list = dataList?.map((result) => {
-    result.list?.map((result) => {
-      coordinates.push({
-        longitude: result.long,
-        latitude: result.lat,
-      });
-      pinList.push({
-        name: result.name,
-        address: result.address,
-        lat: result.lat,
-        long: result.long,
+  const list = (dataList) =>
+    dataList?.map((result) => {
+      result.list?.map((result) => {
+        coordinates.push({
+          longitude: result.long,
+          latitude: result.lat,
+        });
+        pinList.push({
+          name: result.name,
+          address: result.address,
+          lat: result.lat,
+          long: result.long,
+        });
       });
     });
-  });
+
+  list(dataList);
 
   const center = getCenterOfBounds(coordinates);
   const [viewState, setViewState] = useState({
@@ -109,7 +113,7 @@ function MapBox({ dataList }) {
           onResult={(res) => handleSearchedData(res)}
         />
         {searchedResult.coordinates && (
-         <SearchPin searchedResult={searchedResult} dataList={dataList} />
+          <SearchPin searchedResult={searchedResult} dataList={dataList} listFunc={list} />
         )}
 
         {pinList.map((pin, index) => (

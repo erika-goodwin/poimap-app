@@ -14,12 +14,10 @@ function layout({ children }) {
         {/* <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v<YOUR_MAPBOX_VERSION>/mapbox-gl.css' rel='stylesheet' /> */}
       </Head>
 
-      <body>
-        <Header />
-        <Nav />
-        <main>{children}</main>
-        <Footer />
-      </body>
+      <Header />
+      <Nav />
+      <main>{children}</main>
+      <Footer />
     </>
   );
 }

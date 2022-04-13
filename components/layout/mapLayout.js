@@ -11,9 +11,7 @@ function layout({ children }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <body>
-        <UserProvider>{children}</UserProvider>
-      </body>
+      <UserProvider>{children}</UserProvider>
     </>
   );
 }

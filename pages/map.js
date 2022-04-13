@@ -30,7 +30,9 @@ function Map({ datas }) {
         setShowList={setShowList}
       />
       {showCreateList && <MapCreate />}
+
       {(showList && dataList) && <MapList dataList={dataList} setDataList={setDataList} />}
+
     </>
   );
 }

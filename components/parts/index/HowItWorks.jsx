@@ -3,13 +3,13 @@ import Image from "next/image";
 function HowItWorks() {
   return (
     <div className="bg-soft-gray p-4 pb-10">
-      <div className="relative text-center">
+      <div className="relative text-center md:w-2/3 mx-auto lg:w-[43rem]">
         <h2 className="p-5 font-lato font-medium text-2xl">How it Works?</h2>
         <div className="absolute right-0 top-[-80px]">
           <Image src="/world.svg" alt="world Logo" width={180} height={180} />
         </div>
       </div>
-      <div className="bg-main-blue rounded-3xl pb-3 p-6 font-confortaa">
+      <div className="bg-main-blue rounded-3xl pb-3 p-6 font-confortaa md:w-2/3 mx-auto lg:w-[43rem]">
         <p className="text-white">
           Pin your POI (point of interesting) on the map and share your places
           with everybody! <br />

@@ -29,23 +29,12 @@ a {
 
 
 .mapboxgl-ctrl-top-left .mapboxgl-ctrl     { margin: 110px 0 0 15px !important; float: left; } 
+@media (min-width: 1024px) { 
+  .mapboxgl-ctrl-top-left .mapboxgl-ctrl     { margin: 65px 0 0 15px !important; float: left; } 
+}
+
+
 /* .mapboxgl-ctrl-top-right .mapboxgl-ctrl    { margin: 10px 10px 0 0; float: right; }
 .mapboxgl-ctrl-bottom-left .mapboxgl-ctrl  { margin: 0 0 10px 10px; float: left; }
 .mapboxgl-ctrl-bottom-right .mapboxgl-ctrl { margin: 0 10px 10px 0; float: right; } */
 
-
-.mapboxgl-ctrl-geocoder .suggestions {
-  background-color: #fff;
-  border-radius: 4px;
-  left: 0;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  position: absolute;
-  width: 100%;
-  top: 110%; /* fallback */
-  top: calc(100% + 6px);
-  z-index: 1000;
-  overflow: hidden;
-  font-size: 15px;
-}

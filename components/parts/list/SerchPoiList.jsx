@@ -16,7 +16,7 @@ function SerchPoiList() {
   };
   return (
     <div className="bg-main-blue p-4">
-      <div className="bg-white rounded-3xl p-2 font-confortaa">
+      <div className="bg-white rounded-3xl p-2 font-confortaa md:w-2/3 mx-auto lg:w-[43rem]">
         <div className="relative ">
           <h2 className="p-10 font-lato font-medium text-2xl">Lineup</h2>
           <div className="absolute right-0 top-0">

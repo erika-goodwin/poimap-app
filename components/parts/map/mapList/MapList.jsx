@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { useOnClickOutside } from "../../../../tool/useOnClickOutside";
 import MapListCard from "./MapListCard";
 import MapListListCard from "./MapListListCard";
+import {AiOutlineCloseSquare} from 'react-icons/ai'
 
 function MapList({ dataList, setDataList }) {
   const [showingAllList, setShowingAllList] = useState(false);
@@ -20,8 +21,9 @@ function MapList({ dataList, setDataList }) {
   }, [dataList, clickedList])
 
   return (
-    <div className="bg-transparent p-4 absolute bottom-3 w-full">
-      <div className="bg-white rounded-3xl p-2 font-confortaa">
+    <div className="bg-transparent p-4 absolute bottom-3 w-full z-30 ">
+   
+      <div className="bg-white rounded-3xl p-2 font-confortaa md:w-2/3 mx-auto lg:w-[43rem] lg:mr-0">
         <p
           onClick={() => setClickedList({})}
           className="pt-1 pl-1 cursor-pointer hover:text-dark-gray"
@@ -34,19 +36,20 @@ function MapList({ dataList, setDataList }) {
               ? "PIO List"
               : clickedList?.title}
           </h2>
-          <p className="  font-lato">
+          <AiOutlineCloseSquare onClick={()=>setShowList(false)} className="text-2xl text-dark-gray hover:text-black" />
+          {/* <p className="  font-lato ">
             {JSON.stringify(clickedList) === "{}"
               ? null
               : `${
                   clickedList?.list.length ? clickedList.list.length : 0
                 } pins, Location`}
-          </p>
-          {JSON.stringify(clickedList) === "{}" && (
+          </p> */}
+          {/* {JSON.stringify(clickedList) === "{}" && (
             <p className="font-lato">
               {clickedList?.list?.length ? clickedList.list.length : 0} pins,
               Location
             </p>
-          )}
+          )} */}
         </div>
         {JSON.stringify(clickedList) === "{}" ? (
           showingAllList ? (

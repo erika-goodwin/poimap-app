@@ -1,18 +1,24 @@
-import { useState, useRef } from "react";
-import { useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 
 import { useOnClickOutside } from "../../../../tool/useOnClickOutside";
 import MapListCard from "./MapListCard";
 import MapListListCard from "./MapListListCard";
 
-function MapList({ dataList }) {
+function MapList({ dataList, setDataList }) {
   const [showingAllList, setShowingAllList] = useState(false);
   const [clickedList, setClickedList] = useState({});
-  const [dataListState, setDataListState] = useState(dataList);
   // const checkEmptyclickedListect = clickedListect.entries(clickedList);
 
   const node = useRef();
   useOnClickOutside(node, () => setShowingAllList(false));
+
+  useEffect(() => console.log('clickedList!!!', clickedList), [clickedList])
+  useEffect(() => {
+    if(Object.keys(clickedList).length > 0){
+      const selectedList = dataList.find(list => list._id === clickedList._id)
+      setClickedList(selectedList)
+    }
+  }, [dataList, clickedList])
 
   return (
     <div className="bg-transparent p-4 absolute bottom-3 w-full">
@@ -45,7 +51,7 @@ function MapList({ dataList }) {
         </div>
         {JSON.stringify(clickedList) === "{}" ? (
           showingAllList ? (
-            dataListState?.map((item) => {
+            dataList?.map((item) => {
               return (
                 <MapListCard
                   key={item._id}
@@ -56,11 +62,11 @@ function MapList({ dataList }) {
             })
           ) : (
             <>
-              <MapListCard item={dataList[0]} setClickedList={setClickedList} />
+              {dataList && <MapListCard item={dataList[0]} setClickedList={setClickedList} />}
             </>
           )
         ) : (
-          <MapListListCard item={clickedList} setData={setDataListState} />
+          <MapListListCard item={clickedList} setDataList={setDataList} />
         )}
 
         {JSON.stringify(clickedList) === "{}" ? (

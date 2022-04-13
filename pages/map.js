@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+
 import MapTopMenu from "../components/parts/map/parts/MapTopMenu";
 import NestedMapLayout from "../components/layout/nestedMapLayout";
 import MapCreate from "../components/parts/map/MapCreate";
@@ -16,8 +18,11 @@ import { SignedIn } from "@clerk/nextjs";
 function Map({ datas }) {
   const [showCreateList, setShowCreateList] = useState(false);
   const [showList, setShowList] = useState(true);
+  const [dataList, setDataList] = useState(datas);
 
-
+  useEffect(() => {
+    console.log("MAIN LIST: ", dataList)
+  }, [dataList])
 
 
   const router = useRouter();
@@ -26,14 +31,14 @@ function Map({ datas }) {
   // console.log('dataList', datas)
   return (
     <>
-      <MapBox dataList={datas} />
+      <MapBox dataList={dataList} />
       {/* <MapBoxex dataList={datas} /> */}
       <MapTopMenu
         setShowCreateList={setShowCreateList}
         setShowList={setShowList}
       />
       {showCreateList && <MapCreate />}
-      {showList && <MapList dataList={datas} />}
+      {(showList && dataList) && <MapList dataList={dataList} setDataList={setDataList} />}
     </>
   );
 }

@@ -2,9 +2,10 @@ import { useState, useRef, useEffect } from "react";
 import MapListNestedCard from "./MapListNestedCard";
 import axios from "axios";
 
-function MapListListCard({ item, setData }) {
-  // console.log("MapListCardNested // item ", item);
+function MapListListCard({ item, setDataList }) {
   const [deleteName, setDeleteName] = useState("");
+
+  useEffect(() => console.log('UPDATED!!!'), [])
 
   useEffect(() => {
     const deleteHandler = async () => {
@@ -14,32 +15,47 @@ function MapListListCard({ item, setData }) {
 
       const deleteData = {
         id,
-        deletingName,
+        deletingName
       };
 
-      await axios
-        .post("/api/deletingOneOfList", deleteData)
-        .then((res) => {
-          console.log(res.status);
-          alert("Success");
-          setData((prev) => {
-            return prev.map((item) => {
-              if (item._id === id) {
-                return item.list.filter((subItem) => {
-                  console.log("TTT", subItem.name);
-                  console.log("XXX", deleteName);
-                  return subItem.name !== deleteName;
-                });
+      setDataList((prev) => {
+        return prev.map((itemList) => {
+          if(itemList._id === id){
+            const filteredList =  itemList.list.filter(item => {
+              if(item.name === deleteName){
+                return false
               }
+              return true
+            })
 
-              return item;
-            });
-          });
-        })
-        .catch((error) => {
-          console.log(error);
-          alert("Failed to save");
+            return { ...itemList, list: filteredList }
+          }
+
+          return itemList
         });
+
+      });
+      // setDataList((prev) => {
+      //   return prev.map((item) => {
+      //     if (item._id === id) {
+      //       return item.list.filter((subItem) => {
+      //         return subItem.name !== deleteName;
+      //       });
+      //     }
+      //     return item;
+      //   });
+      // });
+
+      // await axios
+      //   .post("/api/deletingOneOfList", deleteData)
+      //   .then((res) => {
+      //     console.log(res.status);
+      //     alert("Success");
+      //   })
+      //   .catch((error) => {
+      //     console.log(error);
+      //     alert("Failed to save");
+      //   });
     };
 
     if (deleteName) {

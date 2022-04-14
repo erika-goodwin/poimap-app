@@ -2,14 +2,19 @@ import { useState, useRef, useEffect } from "react";
 import MapListNestedCard from "./MapListNestedCard";
 import axios from "axios";
 import { useUser, SignIn } from "@clerk/clerk-react";
+import { TiDeleteOutline } from "react-icons/ti";
 
-function MapListListCard({ item, setData }) {
-  // console.log("MapListCardNested // item ", item);
+function MapListListCard({ item, setDataList }) {
   const [deleteName, setDeleteName] = useState("");
 
-    const { isSignedIn, user } = useUser();
-    const userCheck = user.id == item.createdUser && isSignedIn
+  const { isSignedIn, user } = useUser();
 
+  let userCheck;
+  if (isSignedIn) {
+    userCheck = user.id == item.createdUser && isSignedIn;
+  } else {
+    userCheck = false;
+  }
 
   useEffect(() => {
     const deleteHandler = async () => {
@@ -22,24 +27,26 @@ function MapListListCard({ item, setData }) {
         deletingName,
       };
 
+      setDataList((prev) => {
+        return prev.map((itemList) => {
+          if (itemList._id === id) {
+            const filteredList = itemList.list.filter((item) => {
+              if (item.name === deleteName) {
+                return false;
+              }
+              return true;
+            });
+            return { ...itemList, list: filteredList };
+          }
+          return itemList;
+        });
+      });
+
       await axios
         .post("/api/deletingOneOfList", deleteData)
         .then((res) => {
           console.log(res.status);
           alert("Success");
-          setData((prev) => {
-            return prev.map((item) => {
-              if (item._id === id) {
-                return item.list.filter((subItem) => {
-                  console.log("TTT", subItem.name);
-                  console.log("XXX", deleteName);
-                  return subItem.name !== deleteName;
-                });
-              }
-
-              return item;
-            });
-          });
         })
         .catch((error) => {
           console.log(error);
@@ -64,6 +71,14 @@ function MapListListCard({ item, setData }) {
             userCheck={userCheck}
           />
         ))}
+      </div>
+      <div className="p-2 mb-2 flex justify-center">
+        {userCheck && (
+          <div className="flex ">
+            <p>Delete this list</p>
+            <TiDeleteOutline className="text-2xl text-dark-gray mr-2 hover:text-light-blue ml-2" />
+          </div>
+        )}
       </div>
     </>
   );

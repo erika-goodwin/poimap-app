@@ -128,7 +128,7 @@ function SearchPin({ searchedResult, dataList, listFunc }) {
                 {error && <p className="font-lato text-red-500">{error}</p>}
               </div>
               {isShowingDropDown && (
-                <div className=" absolute left-5 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <div className=" absolute left-5 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none max-h-72 overflow-y-scroll">
                   <ul>
                     {dataList.map((list) => (
                       <SearchDropdown

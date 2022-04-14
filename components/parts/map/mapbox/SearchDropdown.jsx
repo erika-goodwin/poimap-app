@@ -9,7 +9,7 @@ function SearchDropdown({ list, setIsShowingDropDown, setSelectedTitleToAdd, set
           setSelectedTitleToAdd(list.title);
           setError('')
         }}
-        className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 hover:text-gray-900"
+        className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 hover:text-gray-900 "
       >
         {list.title}
       </li>

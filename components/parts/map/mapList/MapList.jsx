@@ -1,5 +1,4 @@
-import { useState, useRef } from "react";
-import { useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 
 import { useOnClickOutside } from "../../../../tool/useOnClickOutside";
 import MapListCard from "./MapListCard";
@@ -7,13 +6,22 @@ import MapListListCard from "./MapListListCard";
 import { AiOutlineCloseSquare } from "react-icons/ai";
 import { AiFillStar } from "react-icons/ai";
 
-function MapList({ dataList, setShowList }) {
+function MapList({ dataList, setDataList, setShowList }) {
   const [showingAllList, setShowingAllList] = useState(false);
   const [clickedList, setClickedList] = useState({});
-  const [dataListState, setDataListState] = useState(dataList);
+  // const checkEmptyclickedListect = clickedListect.entries(clickedList);
 
   const node = useRef();
   useOnClickOutside(node, () => setShowingAllList(false));
+
+  useEffect(() => {
+    if (Object.keys(clickedList).length > 0) {
+      const selectedList = dataList.find(
+        (list) => list._id === clickedList._id
+      );
+      setClickedList(selectedList);
+    }
+  }, [dataList, clickedList]);
 
   return (
     <div className="bg-transparent p-4 absolute bottom-3 w-full z-30">
@@ -56,10 +64,11 @@ function MapList({ dataList, setShowList }) {
             </p>
           )} */}
         </div>
+
         <div className="overflow-y-scroll max-h-96">
           {JSON.stringify(clickedList) === "{}" ? (
             showingAllList ? (
-              dataListState?.map((item) => {
+              dataList?.map((item) => {
                 return (
                   <MapListCard
                     key={item._id}
@@ -70,14 +79,23 @@ function MapList({ dataList, setShowList }) {
               })
             ) : (
               <>
-                <MapListCard
-                  item={dataList[0]}
-                  setClickedList={setClickedList}
-                />
+                {dataList && (
+                  <MapListCard
+                    item={dataList[0]}
+                    setClickedList={setClickedList}
+                  />
+                )}
               </>
+              // <>
+
+              //   <MapListCard
+              //     item={dataList[0]}
+              //     setClickedList={setClickedList}
+              //   />
+              // </>
             )
           ) : (
-            <MapListListCard item={clickedList} setData={setDataListState} />
+            <MapListListCard item={clickedList} setDataList={setDataList} />
           )}
 
           {JSON.stringify(clickedList) === "{}" ? (

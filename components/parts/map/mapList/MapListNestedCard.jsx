@@ -26,7 +26,7 @@ function MapListNestedCard({ item, setDeleteName, userCheck }) {
           <div className="flex items-center">
             {userCheck && (
               <>
-                <CgEditMarkup className="text-xl text-off-pink mr-2 hover:text-pure-pink" />
+                {/* <CgEditMarkup className="text-xl text-off-pink mr-2 hover:text-pure-pink" /> */}
                 <TiDeleteOutline
                   onClick={handleDelete}
                   className="text-2xl text-dark-gray mr-2 hover:text-light-blue"

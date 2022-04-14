@@ -4,7 +4,7 @@ function NavNested({ isOpened, setIsOpen, switchingBg }) {
   return (
     <nav className={`${switchingBg} border-0 relative h-12`}>
       {/* bigger screen */}
-      <div className="w-full pr-2 hidden md:block lg:pr-5">
+      <div className="w-full pr-2 hidden md:block lg:pr-5 xl:pr-48">
         <div className="flex justify-end transition-transform ">
           <div
             onClick={(cur) => setIsOpen(!cur)}

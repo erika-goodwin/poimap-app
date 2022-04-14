@@ -19,7 +19,7 @@ function SearchPin({ searchedResult, dataList, listFunc }) {
   const [selectedTitleToAdd, setSelectedTitleToAdd] = useState("");
   const [submitButton, setSubmitButton] = useState("Add");
   // const [data, setData] = useState({ dataList });
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const handleSubmitlist = async (e) => {
     e.preventDefault;
@@ -36,12 +36,6 @@ function SearchPin({ searchedResult, dataList, listFunc }) {
         },
       };
 
-      const id = dataList.find((x) => x.title == selectedTitleToAdd);
-      const forDataList = {
-        _id: id,
-        title: selectedTitleToAdd,
-        list: [],
-      };
 
       await axios
         .post("/api/updatingOneData", postData)
@@ -58,7 +52,7 @@ function SearchPin({ searchedResult, dataList, listFunc }) {
           setSubmitButton("Added");
           // setCreateMode(false);
           console.log("SelectedTitleToAdd empty done");
-window.location.reload(false);
+          window.location.reload(false);
           // setData({..., })
           // listFunc(data);
         });

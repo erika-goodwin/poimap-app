@@ -1,8 +1,9 @@
 import Image from "next/image";
 import { useRouter } from "next/dist/client/router";
 import { useState } from "react";
+import LineUpListCard from "../index/LineUpListCard";
 
-function SerchPoiList() {
+function SerchPoiList({ dataList }) {
   const [searchInput, setSearchInput] = useState("");
   const router = useRouter();
 
@@ -52,57 +53,17 @@ function SerchPoiList() {
           </form>
         </div>
         <div className="p-2">
-          <div className="w-full mb-2 p-1 flex items-center border border-cream-yellow rounded-md">
-            <div className="mr-2 ml-2 p-1">icon</div>
-            <div className="w-full p-2">
-              <h2 className="font-confortaa text-lg font-semibold">
-                Title here
-              </h2>
-              <p className="font-lato">XX pins, Location</p>
-            </div>
-          </div>
-          <div className="w-full mb-2 p-1 flex items-center border border-cream-yellow rounded-md">
-            <div className="mr-2 ml-2 p-1">icon</div>
-            <div className="w-full p-2">
-              <h2 className="font-confortaa text-lg font-semibold">
-                Title here
-              </h2>
-              <p className="font-lato">XX pins, Location</p>
-            </div>
-          </div>
-          <div className="w-full mb-2 p-1 flex items-center border border-cream-yellow rounded-md">
-            <div className="mr-2 ml-2 p-1">icon</div>
-            <div className="w-full p-2">
-              <h2 className="font-confortaa text-lg font-semibold">
-                Title here
-              </h2>
-              <p className="font-lato">XX pins, Location</p>
-            </div>
-          </div>
-          <div className="w-full mb-2 p-1 flex items-center border border-cream-yellow rounded-md">
-            <div className="mr-2 ml-2 p-1">icon</div>
-            <div className="w-full p-2">
-              <h2 className="font-confortaa text-lg font-semibold">
-                Title here
-              </h2>
-              <p className="font-lato">XX pins, Location</p>
-            </div>
-          </div>
-          <div className="w-full mb-2 p-1 flex items-center border border-cream-yellow rounded-md">
-            <div className="mr-2 ml-2 p-1">icon</div>
-            <div className="w-full p-2">
-              <h2 className="font-confortaa text-lg font-semibold">
-                Title here
-              </h2>
-              <p className="font-lato">XX pins, Location</p>
-            </div>
-          </div>
+          {dataList?.map((item) => (
+            <LineUpListCard key={item._id} item={item} />
+          ))}
         </div>
-        <div className="p-1 text-center">
-          <a src="#" alt="" className="font-lato">
-            show more
-          </a>
-        </div>
+        {router == "/" && (
+          <div className="p-1 text-center">
+            <a src="#" alt="" className="font-lato">
+              show more
+            </a>
+          </div>
+        )}
       </div>
     </div>
   );

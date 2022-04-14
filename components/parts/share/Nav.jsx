@@ -15,16 +15,15 @@ function Nav() {
       case "/":
         setSwitchingBg("bg-main-blue");
 
-        console.log("current path /", switchingBg);
         return;
       case "/list":
         setSwitchingBg("bg-soft-gray");
 
-        console.log("current path /list", switchingBg);
+        
         return;
       case "/map":
         setSwitchingBg("bg-transparent");
-        console.log("current path /map", switchingBg);
+        
         return;
       default:
         break;

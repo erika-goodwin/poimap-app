@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 function HowItWorks() {
   return (
@@ -17,17 +18,16 @@ function HowItWorks() {
           Also, you can find many idea for your date night, outdoor day trip or
           secret dog friendly place recomanded by locals!
         </p>
-     
-          <div className="ml-auto mt-4 w-1/2 text-center">
-            <button
-              type="button"
-              className="mb-2 px-3 py-1.5 border border-transparent font-medium rounded-full shadow-sm text-white hover:text-black bg-pure-pink hover:bg-pure-pink  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:bg-pure-pink"
-            >
-              Sign in
-            </button>
-            <p className="text-black font-lato">And start sharing</p>
-          </div>
-  
+
+        <div className="ml-auto mt-4 w-1/2 text-center">
+          <button
+            type="button"
+            className="mb-2 px-3 py-1.5 border border-transparent font-medium rounded-full shadow-sm text-white hover:text-black bg-pure-pink hover:bg-pure-pink  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:bg-pure-pink"
+          >
+            <Link href="/sign-in">Sign in</Link>
+          </button>
+          <p className="text-black font-lato">And start sharing</p>
+        </div>
       </div>
     </div>
   );

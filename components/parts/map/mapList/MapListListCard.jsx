@@ -1,10 +1,15 @@
 import { useState, useRef, useEffect } from "react";
 import MapListNestedCard from "./MapListNestedCard";
 import axios from "axios";
+import { useUser, SignIn } from "@clerk/clerk-react";
 
 function MapListListCard({ item, setData }) {
   // console.log("MapListCardNested // item ", item);
   const [deleteName, setDeleteName] = useState("");
+
+    const { isSignedIn, user } = useUser();
+    const userCheck = user.id == item.createdUser && isSignedIn
+
 
   useEffect(() => {
     const deleteHandler = async () => {
@@ -56,6 +61,7 @@ function MapListListCard({ item, setData }) {
             item={item}
             key={item.name}
             setDeleteName={setDeleteName}
+            userCheck={userCheck}
           />
         ))}
       </div>

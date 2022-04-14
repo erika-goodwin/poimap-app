@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 function SignInBar() {
   return (
@@ -9,7 +10,7 @@ function SignInBar() {
             type="button"
             className="px-3 py-1.5 border border-transparent font-medium rounded-full shadow-sm text-black hover:text-white bg-pure-pink hover:bg-pure-pink  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:bg-pure-pink"
           >
-            Sign in
+            <Link href="/sign-in">Sign in</Link>
           </button>
           <p className="text-black font-lato">And start sharing</p>
         </div>

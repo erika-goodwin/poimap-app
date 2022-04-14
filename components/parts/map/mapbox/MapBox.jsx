@@ -26,6 +26,7 @@ function MapBox({ dataList }) {
 
   const list = (dataList) =>
     dataList?.map((result) => {
+      const color = result.color
       result.list?.map((result) => {
         coordinates.push({
           longitude: result.long,
@@ -36,6 +37,7 @@ function MapBox({ dataList }) {
           address: result.address,
           lat: result.lat,
           long: result.long,
+          color: color,
         });
       });
     });

@@ -1,14 +1,14 @@
-import MapNav from "../parts/map/parts/MapNav";
+// import MapNav from "../parts/map/parts/MapNav";
 
 
-function nestedMapLayout({ children }) {
-  return (
-    <>
-      <MapNav />
+// function nestedMapLayout({ children }) {
+//   return (
+//     <>
+//       <MapNav />
 
-      <main>{children}</main>
-    </>
-  );
-}
+//       <main>{children}</main>
+//     </>
+//   );
+// }
 
-export default nestedMapLayout;
+// export default nestedMapLayout;

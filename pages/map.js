@@ -1,6 +1,5 @@
 import MapTopMenu from "../components/parts/map/parts/MapTopMenu";
-import NestedMapLayout from "../components/layout/nestedMapLayout";
-import MapCreate from "../components/parts/map/MapCreate";
+import MapCreate from "../components/parts/map/mapCreate/MapCreate";
 import MapList from "../components/parts/map/mapList/MapList";
 import MapBox from "../components/parts/map/mapbox/MapBox";
 
@@ -8,17 +7,11 @@ import { connectToDatabase } from "../util/mongodb";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { useRouter } from "next/dist/client/router";
 import { useState } from "react";
-import Script from "next/script";
-import MapBoxex from "../components/parts/map/mapbox/MapBoxEx";
 
-import { SignedIn } from "@clerk/nextjs";
 
 function Map({ datas }) {
   const [showCreateList, setShowCreateList] = useState(false);
   const [showList, setShowList] = useState(true);
-
-
-
 
   const router = useRouter();
   const queryKeyword = router.query;
@@ -27,7 +20,6 @@ function Map({ datas }) {
   return (
     <>
       <MapBox dataList={datas} />
-      {/* <MapBoxex dataList={datas} /> */}
       <MapTopMenu
         setShowCreateList={setShowCreateList}
         setShowList={setShowList}

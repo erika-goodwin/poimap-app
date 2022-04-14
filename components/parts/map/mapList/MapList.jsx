@@ -4,7 +4,8 @@ import { useEffect } from "react";
 import { useOnClickOutside } from "../../../../tool/useOnClickOutside";
 import MapListCard from "./MapListCard";
 import MapListListCard from "./MapListListCard";
-import {AiOutlineCloseSquare} from 'react-icons/ai'
+import { AiOutlineCloseSquare } from "react-icons/ai";
+import { AiFillStar } from "react-icons/ai";
 
 function MapList({ dataList, setShowList }) {
   const [showingAllList, setShowingAllList] = useState(false);
@@ -15,8 +16,7 @@ function MapList({ dataList, setShowList }) {
   useOnClickOutside(node, () => setShowingAllList(false));
 
   return (
-    <div className="bg-transparent p-4 absolute bottom-3 w-full z-30 ">
-   
+    <div className="bg-transparent p-4 absolute bottom-3 w-full z-30">
       <div className="bg-white rounded-3xl p-2 font-confortaa md:w-2/3 mx-auto lg:w-[43rem] lg:mr-0">
         <p
           onClick={() => setClickedList({})}
@@ -25,12 +25,23 @@ function MapList({ dataList, setShowList }) {
           {JSON.stringify(clickedList) == "{}" ? null : "< Back to list"}
         </p>
         <div className="flex justify-between items-center p-3 ">
-          <h2 className=" font-lato font-medium text-2xl">
-            {JSON.stringify(clickedList) === "{}"
-              ? "PIO List"
-              : clickedList?.title}
-          </h2>
-          <AiOutlineCloseSquare onClick={()=>setShowList(false)} className="text-2xl text-dark-gray hover:text-black" />
+          <div className="flex items-center">
+            {JSON.stringify(clickedList) === "{}" ? null : (
+              <AiFillStar
+                className={`text-2xl text-${clickedList.color}-400`}
+              />
+            )}
+
+            <h2 className=" font-lato font-medium text-2xl ml-2">
+              {JSON.stringify(clickedList) === "{}"
+                ? "PIO List"
+                : clickedList?.title}
+            </h2>
+          </div>
+          <AiOutlineCloseSquare
+            onClick={() => setShowList(false)}
+            className="text-2xl text-dark-gray hover:text-black"
+          />
           {/* <p className="  font-lato ">
             {JSON.stringify(clickedList) === "{}"
               ? null
@@ -45,36 +56,41 @@ function MapList({ dataList, setShowList }) {
             </p>
           )} */}
         </div>
-        {JSON.stringify(clickedList) === "{}" ? (
-          showingAllList ? (
-            dataListState?.map((item) => {
-              return (
+        <div className="overflow-y-scroll max-h-96">
+          {JSON.stringify(clickedList) === "{}" ? (
+            showingAllList ? (
+              dataListState?.map((item) => {
+                return (
+                  <MapListCard
+                    key={item._id}
+                    item={item}
+                    setClickedList={setClickedList}
+                  />
+                );
+              })
+            ) : (
+              <>
                 <MapListCard
-                  key={item._id}
-                  item={item}
+                  item={dataList[0]}
                   setClickedList={setClickedList}
                 />
-              );
-            })
+              </>
+            )
           ) : (
-            <>
-              <MapListCard item={dataList[0]} setClickedList={setClickedList} />
-            </>
-          )
-        ) : (
-          <MapListListCard item={clickedList} setData={setDataListState} />
-        )}
+            <MapListListCard item={clickedList} setData={setDataListState} />
+          )}
 
-        {JSON.stringify(clickedList) === "{}" ? (
-          <button
-            onClick={() => {
-              setShowingAllList(!showingAllList);
-            }}
-            className="w-full text-center my-2"
-          >
-            {showingAllList ? "Show less" : " Show more"}
-          </button>
-        ) : null}
+          {JSON.stringify(clickedList) === "{}" ? (
+            <button
+              onClick={() => {
+                setShowingAllList(!showingAllList);
+              }}
+              className="w-full text-center my-2"
+            >
+              {showingAllList ? "Show less" : " Show more"}
+            </button>
+          ) : null}
+        </div>
       </div>
     </div>
   );

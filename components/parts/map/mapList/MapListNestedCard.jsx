@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { CgEditMarkup } from "react-icons/cg";
 import { TiDeleteOutline } from "react-icons/ti";
 
-function MapListNestedCard({ item, setDeleteName }) {
+function MapListNestedCard({ item, setDeleteName, userCheck }) {
   const [showingList, setShowingList] = useState(false);
 
   const handleDelete = (e) => {
@@ -22,12 +22,17 @@ function MapListNestedCard({ item, setDeleteName }) {
             </h2>
             <p className="font-lato"> Adress: {item.address}</p>
           </div>
+
           <div className="flex items-center">
-            <CgEditMarkup className="text-xl text-off-pink mr-2 hover:text-pure-pink" />
-            <TiDeleteOutline
-              onClick={handleDelete}
-              className="text-2xl text-dark-gray mr-2 hover:text-light-blue"
-            />
+            {userCheck && (
+              <>
+                <CgEditMarkup className="text-xl text-off-pink mr-2 hover:text-pure-pink" />
+                <TiDeleteOutline
+                  onClick={handleDelete}
+                  className="text-2xl text-dark-gray mr-2 hover:text-light-blue"
+                />
+              </>
+            )}
           </div>
         </div>
       </div>

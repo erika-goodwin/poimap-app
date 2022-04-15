@@ -5,7 +5,7 @@ import { FaMapMarkerAlt } from "react-icons/fa";
 function Pin({ pin, selectedPin, setSelectedPin }) {
   const [showPopup, setShowPopup] = useState(false);
 
- 
+
   return (
     <>
       <Marker
@@ -18,13 +18,6 @@ function Pin({ pin, selectedPin, setSelectedPin }) {
           setShowPopup(true);
         }}
       >
-        {/* <p
-          role="img"
-          className="text-2xl cursor-pointer animate-bounce"
-          aria-label="push-pin"
-        >
-          📍
-        </p> */}
         <FaMapMarkerAlt
           className={`text-3xl cursor-pointer hover:animate-bounce  text-${pin.color}-400`}
         />

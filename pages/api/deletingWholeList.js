@@ -1,19 +1,16 @@
 import { MongoClient, ObjectId } from "mongodb";
 import { connectToDatabase, client } from "../../util/mongodb";
 
-export default async function deletingOneOfList(req, res) {
+export default async function deletingWholeList(req, res) {
   if (req.method === "POST") {
     const { db } = await connectToDatabase();
 
     let id = req.body.id;
-    // let titleList = req.body.titleList;
-    let deletingName = req.body.deletingName;
+ console.log('id', id)
 
     const yourCollection = db.collection("locationList");
-    const result = await yourCollection.update(
-      { _id: ObjectId(id) },
-      { $pull: { list: { name: deletingName } } },
-      { multi: true }
+    const result = await yourCollection.deleteOne(
+      { _id: ObjectId(id) }
     );
     console.log("mongodb result", result);
     // client.close();

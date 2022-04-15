@@ -1,10 +1,10 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BsFillCaretDownFill } from "react-icons/bs";
 import MapCreateDropdown from "./MapCreateDropdown";
 import { ClerkProvider, useUser, SignIn } from "@clerk/clerk-react";
 
-function MapCreate() {
+function MapCreate({ dataList, setDataList }) {
   const [listName, setListName] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
   const [selectedCss, setSelectedCss] = useState("");
@@ -16,8 +16,15 @@ function MapCreate() {
   // console.log("clerk isSignedIn", isSignedIn);
   // console.log("clerk user", user?.id);
 
+  const updateDataState = (data) => {
+    console.log("data of adding into data state", data);
+    setDataList((pre) => {
+      return [...pre, data];
+    });
+  };
+
   const handleSubmitTitle = async (e) => {
-    e.preventDefault;
+    e.preventDefault();
     console.log(" is selectedColor empty?", selectedColor);
     console.log(" is setListName empty?", setListName);
 
@@ -35,7 +42,6 @@ function MapCreate() {
         .post("/api/addingOneData", postData)
         .then((res) => {
           console.log("res.status", res.status);
-          alert("Success", res.status);
         })
         .catch((error) => {
           console.log("error", error);
@@ -45,7 +51,10 @@ function MapCreate() {
           setListName("");
           setSelectedColor("");
           console.log("setListName empty done");
+
         });
+
+      updateDataState(postData);
     } else {
       if (selectedColor == "" && listName == "") {
         selectedColor == "" && setError("Input a title and select a color");
@@ -95,7 +104,7 @@ function MapCreate() {
                   className=" border rounded border-dark-gray hover:border-main-blue active:border-main-blue bg-transparent w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
                   type="text"
                   placeholder="Title"
-                  vdalue={listName}
+                  value={listName}
                   onChange={(e) => setListName(e.target.value)}
                   // aria-label="Full name"
                 ></input>

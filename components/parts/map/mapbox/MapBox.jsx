@@ -1,21 +1,19 @@
 import { useState, useCallback, useRef, useEffect } from "react";
-import ReactMapGL, { Marker, Popup } from "react-map-gl";
+import Map, { Marker, Popup } from "react-map-gl";
 import getCenterOfBounds from "geolib/es/getCenterOfBounds";
 import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import Geocoder from "react-map-gl-geocoder";
-import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
+// import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 import Pin from "./Pin";
 
 import SearchPin from "./SearchPin";
+import ClickedPin from "./ClickedPin";
 
-function MapBox({ dataList }) {
+function MapBox({ dataList, setDataList }) {
   const [selectedPin, setSelectedPin] = useState(null);
   const [searchedResult, setSearchedResult] = useState({});
-
-  const [selectedList, setSelectedList] = useState({});
-
-
+  const [clickedPin, setClickedPin] = useState({});
 
   const [input] = useState("");
   const coordinates = [];
@@ -26,7 +24,7 @@ function MapBox({ dataList }) {
 
   const list = (dataList) =>
     dataList?.map((result) => {
-      const color = result.color
+      const color = result.color;
       result.list?.map((result) => {
         coordinates.push({
           longitude: result.long,
@@ -51,7 +49,6 @@ function MapBox({ dataList }) {
     zoom: 11,
   });
 
-  // //react-map-gl-geocoder ===============================
   const handleViewportChange = useCallback(
     (newViewport) => setViewState(newViewport),
     []
@@ -89,13 +86,46 @@ function MapBox({ dataList }) {
     });
   };
 
+  const handleClick = (map) => {
+    const clickedCoordinates = {
+      longitude: map.lngLat[0],
+      latitude: map.lngLat[1],
+    };
+    // console.log('clickedCoordinates', clickedCoordinates)
+
+    setClickedPin(clickedCoordinates);
+  };
+
+  const updateDataState = (data) => {
+    console.log("data of adding into data state", data);
+
+    const lestOfObj = dataList.filter((item) => item.title !== data.title);
+    console.log("lestOfObj", lestOfObj);
+
+    const oneObj = dataList.filter((item) => item.title == data.title);
+    const listToAdd = oneObj[0].list;
+    console.log("oneObj", oneObj);
+    console.log("listToAdd", listToAdd);
+    const addingData = data.data;
+    console.log("addingData", addingData);
+
+    const updatedNewObj = listToAdd.push(addingData);
+    console.log("updatedNewObj", updatedNewObj);
+    console.log("listToAdd", listToAdd);
+
+    lestOfObj.push(listToAdd)
+    setDataList(lestOfObj);
+
+    setClickedPin({});
+  };
+
   return (
     <div className="w-full h-screen z-0 ">
       <div
         ref={geocoderContainerRef}
         // style={{ position: "absolute", top: 200, left: 20, zIndex: 1 }}
       />
-      <ReactMapGL
+      <Map
         ref={mapRef}
         {...viewState}
         mapStyle="mapbox://styles/erika00g/cl1e7ojtv001f14mhb7bpu5q5"
@@ -104,6 +134,7 @@ function MapBox({ dataList }) {
         width="100%"
         height="100%"
         onViewportChange={handleViewportChange}
+        onClick={handleClick}
       >
         <Geocoder
           mapRef={mapRef}
@@ -115,7 +146,15 @@ function MapBox({ dataList }) {
           onResult={(res) => handleSearchedData(res)}
         />
         {searchedResult.coordinates && (
-          <SearchPin searchedResult={searchedResult} dataList={dataList} listFunc={list} />
+          <SearchPin searchedResult={searchedResult} dataList={dataList} />
+        )}
+        {JSON.stringify(clickedPin) !== "{}" && (
+          <ClickedPin
+            clickedPin={clickedPin}
+            dataList={dataList}
+            setDataList={setDataList}
+            updateDataState={updateDataState}
+          />
         )}
 
         {pinList.map((pin, index) => (
@@ -126,7 +165,7 @@ function MapBox({ dataList }) {
             setSelectedPin={setSelectedPin}
           />
         ))}
-      </ReactMapGL>
+      </Map>
     </div>
   );
 }

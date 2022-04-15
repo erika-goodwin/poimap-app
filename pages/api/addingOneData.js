@@ -11,6 +11,7 @@ export default async function addingOneData(req, res) {
     const yourCollection = db.collection("locationList");
     const result = await yourCollection.insertOne(data);
     console.log("mongodb result", result);
+    console.log("mongodb id", result.insertedId);
     // client.close();
     res.status(201).json({ message: "Data inserted successfully!" });
     // return;

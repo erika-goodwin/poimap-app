@@ -13,7 +13,7 @@ import {
   SignOutButton,
 } from "@clerk/nextjs";
 
-function SearchPin({ searchedResult, dataList, listFunc }) {
+function SearchPin({ searchedResult, dataList }) {
   const [showPopup, setShowPopup] = useState(true);
   const [isShowingDropDown, setIsShowingDropDown] = useState(false);
   const [selectedTitleToAdd, setSelectedTitleToAdd] = useState("");
@@ -22,7 +22,7 @@ function SearchPin({ searchedResult, dataList, listFunc }) {
   const [error, setError] = useState("");
 
   const handleSubmitlist = async (e) => {
-    e.preventDefault;
+    e.preventDefault();
 
     if (selectedTitleToAdd !== "") {
       const postData = {
@@ -41,7 +41,6 @@ function SearchPin({ searchedResult, dataList, listFunc }) {
         .post("/api/updatingOneData", postData)
         .then((res) => {
           console.log(res.status);
-          alert("Success");
         })
         .catch((error) => {
           console.log(error);
@@ -72,7 +71,7 @@ function SearchPin({ searchedResult, dataList, listFunc }) {
         offsetTop={-10}
         anchor="bottom"
         onClick={(e) => {
-          e.preventDefault;
+          e.preventDefault();
           setShowPopup(true);
         }}
       >
@@ -93,7 +92,7 @@ function SearchPin({ searchedResult, dataList, listFunc }) {
           anchor="bottom"
           onClose={() => setShowPopup(false)}
         >
-          <div className="p-3">
+          <div className="p-3 z-40">
             <div className="pb-3">
               <h2 className="font-confortaa text-lg font-semibold">
                 {searchedResult.name}

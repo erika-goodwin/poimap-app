@@ -6,8 +6,7 @@ import MapBox from "../components/parts/map/mapbox/MapBox";
 import { connectToDatabase } from "../util/mongodb";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { useRouter } from "next/dist/client/router";
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
 
 function Map({ datas }) {
   const [showCreateList, setShowCreateList] = useState(false);
@@ -15,29 +14,38 @@ function Map({ datas }) {
 
   const [dataList, setDataList] = useState(datas);
 
-
   const router = useRouter();
   const queryKeyword = router.query;
 
+
+  // useEffect(()=>{
+  //   setDataList(pre=>[...pre, {title: 'new'}])
+  // },[])
+
+
   return (
     <>
-
-      <MapBox dataList={datas} />
+      <MapBox dataList={dataList} setDataList={setDataList} />
 
       <MapTopMenu
         setShowCreateList={setShowCreateList}
         setShowList={setShowList}
       />
-      {showCreateList && <MapCreate />}
+      {showCreateList && (
+        <MapCreate dataList={dataList} setDataList={setDataList} />
+      )}
 
-      {(showList && dataList) && <MapList dataList={dataList} setDataList={setDataList} setShowList={setShowList} />}
-
+      {showList && dataList && (
+        <MapList
+          dataList={dataList}
+          setDataList={setDataList}
+          setShowList={setShowList}
+        />
+      )}
     </>
   );
 }
 export default Map;
-
-
 
 export async function getServerSideProps() {
   const { db } = await connectToDatabase();

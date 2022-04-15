@@ -9,10 +9,17 @@ import { AiFillStar } from "react-icons/ai";
 function MapList({ dataList, setDataList, setShowList }) {
   const [showingAllList, setShowingAllList] = useState(false);
   const [clickedList, setClickedList] = useState({});
-  // const checkEmptyclickedListect = clickedListect.entries(clickedList);
 
   const node = useRef();
   useOnClickOutside(node, () => setShowingAllList(false));
+
+  const handleDeleteFromData = (deleteId) => {
+    const newData = dataList.filter((data) => {
+      data._id = deleteId;
+    });
+    console.log("newData", newData);
+    setDataList(newData);
+  };
 
   useEffect(() => {
     if (Object.keys(clickedList).length > 0) {
@@ -23,9 +30,12 @@ function MapList({ dataList, setDataList, setShowList }) {
     }
   }, [dataList, clickedList]);
 
+
+
+
   return (
-    <div className="bg-transparent p-4 absolute bottom-3 w-full z-30">
-      <div className="bg-white rounded-3xl p-2 font-confortaa md:w-2/3 mx-auto lg:w-[43rem] lg:mr-0">
+    <div className="bg-transparent p-4 absolute bottom-3 w-full md:w-2/3 mx-auto lg:w-[43rem] lg:right-3 ">
+      <div className="bg-white rounded-3xl p-2 font-confortaa z-30">
         <p
           onClick={() => setClickedList({})}
           className="pt-1 pl-1 cursor-pointer hover:text-dark-gray"
@@ -36,7 +46,7 @@ function MapList({ dataList, setDataList, setShowList }) {
           <div className="flex items-center">
             {JSON.stringify(clickedList) === "{}" ? null : (
               <AiFillStar
-                className={`text-2xl text-${clickedList.color}-400`}
+                className={`text-2xl text-${clickedList?.color}-400`}
               />
             )}
 
@@ -95,7 +105,7 @@ function MapList({ dataList, setDataList, setShowList }) {
               // </>
             )
           ) : (
-            <MapListListCard item={clickedList} setDataList={setDataList} />
+            <MapListListCard item={clickedList} setDataList={setDataList} handleDeleteFromData={handleDeleteFromData} />
           )}
 
           {JSON.stringify(clickedList) === "{}" ? (

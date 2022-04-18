@@ -13,8 +13,8 @@ import Link from "next/link";
 import { useState, useCallback, useRef, useEffect } from "react";
 import ReactMapGL, { Marker, Popup } from "react-map-gl";
 
-function ClickedPin({ clickedPin, dataList, updateDataState }) {
-  const [showPopup, setShowPopup] = useState(true);
+function ClickedPin({ clickedPin, dataList, updateDataState, showPopup, setShowPopup }) {
+
   const [isShowingDropDown, setIsShowingDropDown] = useState(false);
   const [selectedTitleToAdd, setSelectedTitleToAdd] = useState("");
   const [placeName, setPlaceName] = useState("");
@@ -22,10 +22,6 @@ function ClickedPin({ clickedPin, dataList, updateDataState }) {
   // const [data, setData] = useState({ dataList });
   const [error, setError] = useState("");
   const [showingAddModal, setShowingAddModal] = useState(false);
-
-
-
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -77,7 +73,9 @@ function ClickedPin({ clickedPin, dataList, updateDataState }) {
         anchor="bottom"
         onClick={(e) => {
           e.preventDefault();
-          setShowPopup(true);
+
+            setShowPopup(true);
+
         }}
       >
         <p

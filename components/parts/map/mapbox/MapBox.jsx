@@ -10,12 +10,13 @@ import Pin from "./Pin";
 import SearchPin from "./SearchPin";
 import ClickedPin from "./ClickedPin";
 
-import { _MapContext } from "@globalfishingwatch/react-map-gl";
+// import { _MapContext } from "@globalfishingwatch/react-map-gl";
 
 function MapBox({ dataList, setDataList, setShowList }) {
   const [selectedPin, setSelectedPin] = useState(null);
   const [searchedResult, setSearchedResult] = useState({});
   const [clickedPin, setClickedPin] = useState({});
+  const [showPopup, setShowPopup] = useState(true);
 
   const [input] = useState("");
   const coordinates = [];
@@ -24,7 +25,7 @@ function MapBox({ dataList, setDataList, setShowList }) {
   const geocoderContainerRef = useRef();
   const mapRef = useRef();
 
-  const context = useContext(_MapContext);
+  // const context = useContext(_MapContext);
 
   const list = (dataList) =>
     dataList?.map((result) => {
@@ -90,23 +91,32 @@ function MapBox({ dataList, setDataList, setShowList }) {
       name,
       address,
     });
+    setClickedPin({});
+    setShowPopup(false);
   };
 
   const handleClick = (map) => {
     map.stopPropagation();
 
-    // console.log("args", args);
-    // console.log("evt", evt);
-
-    // context.eventManager.once("click", (e) => e.stopPropagation(), evt.target);
-
     const clickedCoordinates = {
       longitude: map.lngLat[0],
       latitude: map.lngLat[1],
     };
-    // console.log('clickedCoordinates', clickedCoordinates)
 
-    setClickedPin(clickedCoordinates);
+    if (JSON.stringify(clickedPin) == "{}") {
+      setClickedPin(clickedCoordinates);
+      setShowPopup(true)
+    } else {
+      if (showPopup) {
+        return null;
+
+// HERE, Need something manage to move the pin when it is empty
+
+      } else {
+        setClickedPin(clickedCoordinates);
+        setShowPopup(true)
+      }
+    }
   };
 
   const updateDataState = (data) => {
@@ -141,15 +151,6 @@ function MapBox({ dataList, setDataList, setShowList }) {
         onViewportChange={handleViewportChange}
         onClick={handleClick}
       >
-        <Geocoder
-          mapRef={mapRef}
-          onViewportChange={handleGeocoderViewportChange}
-          mapboxApiAccessToken={process.env.mapbox_key}
-          position="top-left"
-          // style={{ position: "absolute", top: '150px !important'}}
-          inputValue={input}
-          onResult={(res) => handleSearchedData(res)}
-        />
         {searchedResult.coordinates && (
           <SearchPin searchedResult={searchedResult} dataList={dataList} />
         )}
@@ -159,6 +160,8 @@ function MapBox({ dataList, setDataList, setShowList }) {
             dataList={dataList}
             setDataList={setDataList}
             updateDataState={updateDataState}
+            showPopup={showPopup}
+            setShowPopup={setShowPopup}
           />
         )}
 
@@ -171,6 +174,15 @@ function MapBox({ dataList, setDataList, setShowList }) {
           />
         ))}
       </Map>
+      <Geocoder
+        mapRef={mapRef}
+        onViewportChange={handleGeocoderViewportChange}
+        mapboxApiAccessToken={process.env.mapbox_key}
+        position="top-left"
+        // style={{ position: "absolute", top: '150px !important'}}
+        inputValue={input}
+        onResult={(res) => handleSearchedData(res)}
+      />
     </div>
   );
 }

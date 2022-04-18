@@ -14,10 +14,7 @@ function MapList({ dataList, setDataList, setShowList }) {
   useOnClickOutside(node, () => setShowingAllList(false));
 
   const handleDeleteFromData = (deleteId) => {
-    const newData = dataList.filter((data) => {
-      data._id = deleteId;
-    });
-    console.log("newData", newData);
+    const newData = dataList.filter((data) => data._id !== deleteId);
     setDataList(newData);
   };
 
@@ -29,9 +26,10 @@ function MapList({ dataList, setDataList, setShowList }) {
       setClickedList(selectedList);
     }
   }, [dataList, clickedList]);
-
-
-
+  
+  useEffect(() => {
+    console.log("clickedList", clickedList);
+  }, [clickedList]);
 
   return (
     <div className="bg-transparent p-4 absolute bottom-3 w-full md:w-2/3 mx-auto lg:w-[43rem] lg:right-3 ">
@@ -60,19 +58,6 @@ function MapList({ dataList, setDataList, setShowList }) {
             onClick={() => setShowList(false)}
             className="text-2xl text-dark-gray hover:text-black"
           />
-          {/* <p className="  font-lato ">
-            {JSON.stringify(clickedList) === "{}"
-              ? null
-              : `${
-                  clickedList?.list.length ? clickedList.list.length : 0
-                } pins, Location`}
-          </p> */}
-          {/* {JSON.stringify(clickedList) === "{}" && (
-            <p className="font-lato">
-              {clickedList?.list?.length ? clickedList.list.length : 0} pins,
-              Location
-            </p>
-          )} */}
         </div>
 
         <div className="overflow-y-scroll max-h-96">
@@ -105,7 +90,12 @@ function MapList({ dataList, setDataList, setShowList }) {
               // </>
             )
           ) : (
-            <MapListListCard item={clickedList} setDataList={setDataList} handleDeleteFromData={handleDeleteFromData} />
+            <MapListListCard
+              item={clickedList}
+              setDataList={setDataList}
+              handleDeleteFromData={handleDeleteFromData}
+              setClickedList={setClickedList}
+            />
           )}
 
           {JSON.stringify(clickedList) === "{}" ? (

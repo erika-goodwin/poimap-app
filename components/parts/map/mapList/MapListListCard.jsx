@@ -3,15 +3,22 @@ import MapListNestedCard from "./MapListNestedCard";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useUser, SignIn } from "@clerk/clerk-react";
-import { TiDeleteOutline } from "react-icons/ti";
 
-function MapListListCard({ item, setDataList, handleDeleteFromData }) {
+
+function MapListListCard({
+  item,
+  setDataList,
+  handleDeleteFromData,
+  setClickedList,
+}) {
   const [deleteName, setDeleteName] = useState("");
   const [showingModal, setShowingModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
 
   const { isSignedIn, user } = useUser();
   const router = useRouter();
+
+  console.log('user', user)
 
   let userCheck;
   if (isSignedIn) {
@@ -27,6 +34,7 @@ function MapListListCard({ item, setDataList, handleDeleteFromData }) {
     const deleteData = {
       id,
     };
+    setClickedList({});
 
     await axios
       .post("/api/deletingWholeList", deleteData)
@@ -35,18 +43,12 @@ function MapListListCard({ item, setDataList, handleDeleteFromData }) {
       })
       .catch((error) => {
         setErrorMessage("Fail to delete");
-
         console.log("error", error);
-
-        alert("Failed to save");
+        // alert("Failed to save");
       })
       .finally(() => {
         setShowingModal(false);
         handleDeleteFromData(id);
-
-        // setListName("");
-        // setSelectedColor("");
-        console.log("setListName empty done");
       });
   };
 

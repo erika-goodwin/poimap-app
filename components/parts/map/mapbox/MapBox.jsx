@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef, useEffect } from "react";
+import { useState, useCallback, useRef, useEffect, useContext } from "react";
 import Map, { Marker, Popup } from "react-map-gl";
 import getCenterOfBounds from "geolib/es/getCenterOfBounds";
 import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
@@ -10,7 +10,9 @@ import Pin from "./Pin";
 import SearchPin from "./SearchPin";
 import ClickedPin from "./ClickedPin";
 
-function MapBox({ dataList, setDataList }) {
+import { _MapContext } from "@globalfishingwatch/react-map-gl";
+
+function MapBox({ dataList, setDataList, setShowList }) {
   const [selectedPin, setSelectedPin] = useState(null);
   const [searchedResult, setSearchedResult] = useState({});
   const [clickedPin, setClickedPin] = useState({});
@@ -22,9 +24,12 @@ function MapBox({ dataList, setDataList }) {
   const geocoderContainerRef = useRef();
   const mapRef = useRef();
 
+  const context = useContext(_MapContext);
+
   const list = (dataList) =>
     dataList?.map((result) => {
       const color = result.color;
+      const title = result.title;
       result.list?.map((result) => {
         coordinates.push({
           longitude: result.long,
@@ -36,6 +41,7 @@ function MapBox({ dataList, setDataList }) {
           lat: result.lat,
           long: result.long,
           color: color,
+          title: title,
         });
       });
     });
@@ -87,6 +93,13 @@ function MapBox({ dataList, setDataList }) {
   };
 
   const handleClick = (map) => {
+    map.stopPropagation();
+
+    // console.log("args", args);
+    // console.log("evt", evt);
+
+    // context.eventManager.once("click", (e) => e.stopPropagation(), evt.target);
+
     const clickedCoordinates = {
       longitude: map.lngLat[0],
       latitude: map.lngLat[1],
@@ -97,26 +110,18 @@ function MapBox({ dataList, setDataList }) {
   };
 
   const updateDataState = (data) => {
-    console.log("data of adding into data state", data);
-
     const lestOfObj = dataList.filter((item) => item.title !== data.title);
-    console.log("lestOfObj", lestOfObj);
-
     const oneObj = dataList.filter((item) => item.title == data.title);
     const listToAdd = oneObj[0].list;
-    console.log("oneObj", oneObj);
-    console.log("listToAdd", listToAdd);
     const addingData = data.data;
-    console.log("addingData", addingData);
 
-    const updatedNewObj = listToAdd.push(addingData);
-    console.log("updatedNewObj", updatedNewObj);
-    console.log("listToAdd", listToAdd);
+    listToAdd.push(addingData);
+    lestOfObj.push(listToAdd);
 
-    lestOfObj.push(listToAdd)
     setDataList(lestOfObj);
-
     setClickedPin({});
+
+    setShowList(true);
   };
 
   return (

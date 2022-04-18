@@ -18,21 +18,24 @@ function Map({ datas }) {
   const queryKeyword = router.query;
 
 
-  // useEffect(()=>{
-  //   setDataList(pre=>[...pre, {title: 'new'}])
-  // },[])
+  useEffect(()=>{
+   console.log('showList', showList)
+  },[showList])
+  useEffect(()=>{
+   console.log('showCreateList', showCreateList)
+  },[showCreateList])
 
 
   return (
     <>
-      <MapBox dataList={dataList} setDataList={setDataList} />
+      <MapBox dataList={dataList} setDataList={setDataList} setShowList={setShowList} />
 
       <MapTopMenu
         setShowCreateList={setShowCreateList}
         setShowList={setShowList}
       />
       {showCreateList && (
-        <MapCreate dataList={dataList} setDataList={setDataList} />
+        <MapCreate dataList={dataList} setDataList={setDataList} setShowCreateList={setShowCreateList} setShowList={setShowList} />
       )}
 
       {showList && dataList && (

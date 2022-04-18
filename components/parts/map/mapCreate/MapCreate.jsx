@@ -4,7 +4,7 @@ import { BsFillCaretDownFill } from "react-icons/bs";
 import MapCreateDropdown from "./MapCreateDropdown";
 import { ClerkProvider, useUser, SignIn } from "@clerk/clerk-react";
 
-function MapCreate({ dataList, setDataList }) {
+function MapCreate({ dataList, setDataList, setShowCreateList, setShowList }) {
   const [listName, setListName] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
   const [selectedCss, setSelectedCss] = useState("");
@@ -34,7 +34,7 @@ function MapCreate({ dataList, setDataList }) {
         list: [],
         color: selectedColor,
         createdUser: user.id,
-        userName: user.firstName,
+        userName: user.username,
       };
       console.log("postData", postData);
 
@@ -51,10 +51,11 @@ function MapCreate({ dataList, setDataList }) {
           setListName("");
           setSelectedColor("");
           console.log("setListName empty done");
-
         });
 
       updateDataState(postData);
+      setShowCreateList(false);
+      setShowList(true);
     } else {
       if (selectedColor == "" && listName == "") {
         selectedColor == "" && setError("Input a title and select a color");

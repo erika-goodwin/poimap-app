@@ -14,16 +14,14 @@ function Nav() {
     switch (currentPath) {
       case "/":
         setSwitchingBg("bg-main-blue");
-
         return;
       case "/list":
         setSwitchingBg("bg-soft-gray");
 
-        
         return;
       case "/map":
         setSwitchingBg("bg-transparent");
-        
+
         return;
       default:
         break;

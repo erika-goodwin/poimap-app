@@ -17,24 +17,35 @@ function Map({ datas }) {
   const router = useRouter();
   const queryKeyword = router.query;
 
-  useEffect(()=>{
-   console.log('showList', showList)
-  },[showList])
-  useEffect(()=>{
-   console.log('showCreateList', showCreateList)
-  },[showCreateList])
-
+  useEffect(() => {
+    console.log("showList", showList);
+  }, [showList]);
+  useEffect(() => {
+    console.log("datas: ", datas);
+  }, [datas]);
+  useEffect(() => {
+    console.log("showCreateList", showCreateList);
+  }, [showCreateList]);
 
   return (
     <>
-      <MapBox dataList={dataList} setDataList={setDataList} setShowList={setShowList} />
+      <MapBox
+        dataList={dataList}
+        setDataList={setDataList}
+        setShowList={setShowList}
+      />
 
       <MapTopMenu
         setShowCreateList={setShowCreateList}
         setShowList={setShowList}
       />
       {showCreateList && (
-        <MapCreate dataList={dataList} setDataList={setDataList} setShowCreateList={setShowCreateList} setShowList={setShowList} />
+        <MapCreate
+          dataList={dataList}
+          setDataList={setDataList}
+          setShowCreateList={setShowCreateList}
+          setShowList={setShowList}
+        />
       )}
 
       {showList && dataList && (

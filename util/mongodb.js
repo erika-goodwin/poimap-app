@@ -2,8 +2,6 @@ import { MongoClient } from "mongodb";
 
 const { MONGODB_URI, MONGODB_DB } = process.env;
 
-console.log("From Utils: ", MONGODB_URI);
-
 if (!MONGODB_URI) {
   throw new Error(
     "Please define the MONGODB_URI environment variable inside .env.local"
@@ -41,5 +39,6 @@ export async function connectToDatabase() {
     });
   }
   cached.conn = await cached.promise;
+  console.log("From Utils: ", cached.conn);
   return cached.conn;
 }

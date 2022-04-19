@@ -2,6 +2,8 @@ import { MongoClient } from "mongodb";
 
 const { MONGODB_URI, MONGODB_DB } = process.env;
 
+console.log("From Utils: ", MONGODB_URI);
+
 if (!MONGODB_URI) {
   throw new Error(
     "Please define the MONGODB_URI environment variable inside .env.local"
@@ -13,7 +15,6 @@ if (!MONGODB_DB) {
     "Please define the MONGODB_DB environment variable inside .env.local"
   );
 }
-
 
 let cached = global.mongo;
 

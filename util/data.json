@@ -1,0 +1,40 @@
+[
+  {
+    "title": "Gym location",
+    "list": [
+      {
+        "icon": "https://links.papareact.com/xqj",
+        "name": "Fitness World, Kingsway",
+        "address": "5500 Kingsway, Burnaby, BC V5H 2G1",
+        "lat": 49.22317443058071,
+        "long": -122.98521624535097
+      },
+      {
+        "icon": "https://links.papareact.com/xqj",
+        "name": "Fitness World, Broadway",
+        "address": "555 W 12th Ave, Vancouver, BC V5Z 4B4",
+        "lat": 49.26243279539298,
+        "long": -123.1168650071704
+      }
+    ]
+  },
+  {
+    "title": "Ohanami location",
+    "list": [
+      {
+        "icon": "https://links.papareact.com/xqj",
+        "name": "E 40th Ave",
+        "address": "E 40th Ave, Vancouver, BC",
+        "lat": 49.233874812112184,
+        "long": -123.05508580730879
+      },
+      {
+        "icon": "https://links.papareact.com/xqj",
+        "name": "Dickens St",
+        "address": " Dickens St, Burnaby, BC",
+        "lat": 49.26243279539298,
+        "long": -123.1168650071704
+      }
+    ]
+  }
+]

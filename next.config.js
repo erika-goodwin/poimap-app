@@ -8,6 +8,7 @@ const nextConfig = {
     mapbox_key:
       "pk.eyJ1IjoiZXJpa2EwMGciLCJhIjoiY2wxNzFidzFyNDF5ajNsbXVvem1sMWtlZSJ9.ByQ6vE5aCgN26lcOnWx10w",
   },
+  optimizeFonts: false,
 };
 
 module.exports = nextConfig;

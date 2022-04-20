@@ -32,8 +32,8 @@ function MapList({ dataList, setDataList, setShowList }) {
   }, [clickedList]);
 
   return (
-    <div className="bg-transparent p-4 absolute bottom-3 w-full md:w-2/3 mx-auto lg:w-[43rem] lg:right-3 ">
-      <div className="bg-white rounded-3xl p-2 font-confortaa z-30">
+    <div className="bg-transparent p-4 absolute bottom-3 w-full  ">
+      <div className="bg-white rounded-3xl p-2 font-confortaa md:w-2/3 mx-auto lg:w-[43rem] lg:mr-0">
         <p
           onClick={() => setClickedList({})}
           className="pt-1 pl-1 cursor-pointer hover:text-dark-gray"

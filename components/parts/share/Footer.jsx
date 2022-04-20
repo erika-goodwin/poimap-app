@@ -6,7 +6,8 @@ function Footer() {
 
   return (
     <>
-      {currentPath == "/" || currentPath == "/list"  && (
+      {/* {currentPath == "/" || currentPath == "/list"  && ( */}
+      {currentPath == "/" && (
         <footer className="bg-soft-gray w-full ">
           <div className="bg-dark-gray rounded-t-lg h-20 flex justify-center">
             <h1 className="text-white font-confortaa p-2 mt-auto">

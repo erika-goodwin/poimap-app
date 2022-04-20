@@ -12,12 +12,12 @@ function NavNested({ isOpened, setIsOpen, switchingBg }) {
           >
             <Link href="/">Home</Link>
           </div>
-          <div
+          {/* <div
             onClick={(cur) => setIsOpen(!cur)}
             className="p-2 text-center transition hover:text-dark-gray hover:ease-in-out"
           >
             <Link href="/list">List</Link>
-          </div>
+          </div> */}
           <div
             onClick={(cur) => setIsOpen(!cur)}
             className="p-2 text-center transition hover:text-dark-gray  hover:ease-in-out"
@@ -47,12 +47,12 @@ function NavNested({ isOpened, setIsOpen, switchingBg }) {
           >
             <Link href="/">Home</Link>
           </div>
-          <div
+          {/* <div
             onClick={(cur) => setIsOpen(!cur)}
             className="p-2 text-center transition hover:bg-light-blue hover:ease-in-out"
           >
             <Link href="/list">List</Link>
-          </div>
+          </div> */}
           <div
             onClick={(cur) => setIsOpen(!cur)}
             className="p-2 text-center transition hover:bg-light-blue hover:ease-in-out"

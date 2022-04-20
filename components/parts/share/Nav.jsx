@@ -15,10 +15,9 @@ function Nav() {
       case "/":
         setSwitchingBg("bg-main-blue");
         return;
-      case "/list":
-        setSwitchingBg("bg-soft-gray");
-
-        return;
+      // case "/list":
+      //   setSwitchingBg("bg-soft-gray");
+      //   return;
       case "/map":
         setSwitchingBg("bg-transparent");
 

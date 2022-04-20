@@ -39,13 +39,13 @@ function Nav() {
 
         {isOpened && (
           <div className="flex flex-col transition-transform">
-            <div className="w-1/3 ml-auto rounded-b-lg bg-main-blue ">
+            <div className="w-1/5 ml-auto rounded-b-lg bg-main-blue ">
               <div className="p-2 text-center transition hover:bg-light-blue hover:ease-in-out">
                 <Link href="/">Home</Link>
               </div>
-              <div className="p-2 text-center transition hover:bg-light-blue hover:ease-in-out">
+              {/* <div className="p-2 text-center transition hover:bg-light-blue hover:ease-in-out">
                 <Link href="/list">List</Link>
-              </div>
+              </div> */}
               <div
                 onClick={(cur) => setIsOpen(!cur)}
                 className="p-2 text-center transition hover:bg-light-blue hover:ease-in-out"

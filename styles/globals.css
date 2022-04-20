@@ -27,14 +27,33 @@ a {
   box-sizing: border-box;
 }
 
-
-.mapboxgl-ctrl-top-left .mapboxgl-ctrl     { margin: 110px 0 0 15px !important; float: left; } 
-@media (min-width: 1024px) { 
-  .mapboxgl-ctrl-top-left .mapboxgl-ctrl     { margin: 65px 0 0 15px !important; float: left; } 
+.mapboxgl-ctrl-top-left .mapboxgl-ctrl {
+  margin: 110px 0 0 15px !important;
+  float: left;
 }
-
+@media (min-width: 1024px) {
+  .mapboxgl-ctrl-top-left .mapboxgl-ctrl {
+    margin: 65px 0 0 15px !important;
+    float: left;
+  }
+}
 
 /* .mapboxgl-ctrl-top-right .mapboxgl-ctrl    { margin: 10px 10px 0 0; float: right; }
 .mapboxgl-ctrl-bottom-left .mapboxgl-ctrl  { margin: 0 0 10px 10px; float: left; }
 .mapboxgl-ctrl-bottom-right .mapboxgl-ctrl { margin: 0 10px 10px 0; float: right; } */
 
+.mapboxgl-popup {
+  /* position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  will-change: transform;
+  pointer-events: none; */
+  z-index: 100;
+}
+
+.mapboxgl-popup-anchor-bottom,
+.mapboxgl-popup-anchor-bottom-left,
+.mapboxgl-popup-anchor-bottom-right {
+  /* flex-direction: column-reverse; */
+}

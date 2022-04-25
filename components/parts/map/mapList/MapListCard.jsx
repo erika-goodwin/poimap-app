@@ -16,12 +16,12 @@ function MapListCard({ item, setClickedList }) {
               {item.title}
             </h2>
             <p className="font-lato">
-              {item.list.length === 0 ? 0 : item.list.length} pins, Location by{" "}
+              {item.list?.length === 0 ? 0 : item.list?.length} pins, Location by{" "}
               {item.userName}
             </p>
           </div>
         </div>
-        {item.list.length ? (
+        {item.list?.length ? (
           <button className="w-10 text-2xl pr-3">&#x2227;</button>
         ) : (
           ""

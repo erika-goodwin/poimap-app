@@ -17,6 +17,7 @@ function MapBox({ dataList, setDataList, setShowList }) {
   const [searchedResult, setSearchedResult] = useState({});
   const [clickedPin, setClickedPin] = useState({});
   const [showPopup, setShowPopup] = useState(true);
+  // const [isTyping, setIsTyping] = useState(false);
 
   const [input] = useState("");
   const coordinates = [];
@@ -129,28 +130,46 @@ function MapBox({ dataList, setDataList, setShowList }) {
       latitude: map.lngLat[1],
     };
 
+    console.log(
+      'JSON.stringify(clickedPin) == "{}"',
+      JSON.stringify(clickedPin) == "{}"
+    );
+    console.log("clickedPin", clickedPin);
+    console.log("showPopup", showPopup);
+    // console.log("isTyping", isTyping);
 
+    if (JSON.stringify(clickedPin) == "{}") {
       setClickedPin(clickedCoordinates);
       setShowPopup(true);
 
+      console.log("clickedPin", clickedPin);
+      console.log("showPopup", showPopup);
+    } else {
+      // !isTyping && setClickedPin(clickedCoordinates);
+      console.log("else");
+    }
   };
 
   const updateDataState = (data) => {
+
+    console.log('mapbox/ updateDataState ')
     const lestOfObj = dataList.filter((item) => item.title !== data.title);
     const oneObj = dataList.filter((item) => item.title == data.title);
     const listToAdd = oneObj[0].list;
     const addingData = data.data;
 
+    console.log('lest of obj, ', lestOfObj, 'One obj, ', oneObj)
+
     listToAdd.push(addingData);
     lestOfObj.push(listToAdd);
+
+    console.log('listToAdd, ', listToAdd, 'lestOfObj, ', lestOfObj)
 
     setDataList(lestOfObj);
     setClickedPin({});
 
     setShowList(true);
   };
-
-
 
   return (
     <div className="w-full h-screen z-0 ">
@@ -168,11 +187,12 @@ function MapBox({ dataList, setDataList, setShowList }) {
       >
         {searchedResult.coordinates && (
           <SearchPin
+            setSearchedResult={setSearchedResult}
             searchedResult={searchedResult}
             dataList={dataList}
           />
         )}
-        {JSON.stringify(clickedPin) !== "{}" && (
+        {!searchedResult.coordinates && JSON.stringify(clickedPin) !== "{}" && (
           <ClickedPin
             clickedPin={clickedPin}
             dataList={dataList}
@@ -180,6 +200,8 @@ function MapBox({ dataList, setDataList, setShowList }) {
             updateDataState={updateDataState}
             showPopup={showPopup}
             setShowPopup={setShowPopup}
+            setClickedPin={setClickedPin}
+            // setIsTyping={setIsTyping}
           />
         )}
 
@@ -189,6 +211,7 @@ function MapBox({ dataList, setDataList, setShowList }) {
             key={index}
             selectedPin={selectedPin}
             setSelectedPin={setSelectedPin}
+            clickedPin={clickedPin}
           />
         ))}
       </Map>

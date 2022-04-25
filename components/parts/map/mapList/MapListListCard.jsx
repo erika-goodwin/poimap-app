@@ -13,12 +13,9 @@ function MapListListCard({
   const [deleteName, setDeleteName] = useState("");
   const [showingModal, setShowingModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
-
-  const { isSignedIn, user } = useUser();
   const router = useRouter();
 
-  // console.log("user", user);
-
+  const { isSignedIn, user } = useUser();
   let userCheck;
   if (isSignedIn) {
     userCheck = user.id == item?.createdUser && isSignedIn;

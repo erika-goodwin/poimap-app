@@ -32,7 +32,7 @@ function MapList({ dataList, setDataList, setShowList }) {
   // }, [clickedList]);
 
   return (
-    <div className="bg-transparent p-4 absolute bottom-3 w-full  ">
+    <div className="bg-transparent p-4 absolute bottom-3 w-full z-60 ">
       <div className="bg-white rounded-3xl p-2 font-confortaa md:w-2/3 mx-auto lg:w-[43rem] lg:mr-0">
         <p
           onClick={() => setClickedList({})}
@@ -60,7 +60,7 @@ function MapList({ dataList, setDataList, setShowList }) {
           />
         </div>
 
-        <div className="overflow-y-scroll max-h-96">
+        <div className="overflow-y-scroll max-h-64 md:max-h-72 lg:max-h-96 ">
           {JSON.stringify(clickedList) === "{}" ? (
             showingAllList ? (
               dataList?.map((item) => {

@@ -16,8 +16,8 @@ function TopMenu({ setShowCreateList, setShowList }) {
   };
 
   return (
-    <div className="bg-transparent absolute top-14 w-full lg:w-[43rem] md:right-10">
-      <div className=" pr-4 pl-4">
+    <div className="bg-transparent  pr-4 pl-4 absolute top-14 w-full lg:w-[43rem] lg:right-10">
+      <div className="">
         <div className="bg-white rounded-md p-2  flex justify-evenly font-confortaa md:w-2/3 mx-auto lg:w-[43rem]">
           <SignedIn>
             <button

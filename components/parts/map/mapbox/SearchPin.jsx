@@ -6,14 +6,25 @@ import { Marker, Popup } from "react-map-gl";
 import { BsFillCaretDownFill } from "react-icons/bs";
 import SearchDropdown from "./SearchDropdown";
 import { SignedIn, SignedOut } from "@clerk/nextjs";
+import { useUser } from "@clerk/clerk-react";
 
-function SearchPin({ searchedResult, dataList }) {
+function SearchPin({ setSearchedResult, searchedResult, dataList }) {
   const [showPopup, setShowPopup] = useState(true);
   const [isShowingDropDown, setIsShowingDropDown] = useState(false);
   const [selectedTitleToAdd, setSelectedTitleToAdd] = useState("");
   const [submitButton, setSubmitButton] = useState("Add");
 
   const [error, setError] = useState("");
+
+  console.log("SearchPin/datalist", dataList);
+
+  const { isSignedIn, user } = useUser();
+  let newUserList;
+  if (isSignedIn) {
+    newUserList = dataList.filter((item) => item.createdUser === user.id);
+  } else {
+    newUserList = dataList;
+  }
 
   const handleSubmitlist = async (e) => {
     e.preventDefault();
@@ -43,8 +54,6 @@ function SearchPin({ searchedResult, dataList }) {
           setSelectedTitleToAdd("");
           setSubmitButton("Added");
           window.location.reload(false);
-      
-
         });
     } else {
       setError("Select a list to add");
@@ -78,7 +87,10 @@ function SearchPin({ searchedResult, dataList }) {
           closeOnClick={false}
           offset={20}
           anchor="bottom"
-          onClose={() => setShowPopup(false)}
+          onClose={() => {
+            setShowPopup(false);
+            setSearchedResult({});
+          }}
         >
           <div className="p-3 z-40">
             <div className="pb-3">
@@ -117,7 +129,7 @@ function SearchPin({ searchedResult, dataList }) {
               {isShowingDropDown && (
                 <div className=" absolute left-5 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none max-h-72 overflow-y-scroll">
                   <ul>
-                    {dataList.map((list) => (
+                    {newUserList.map((list) => (
                       <SearchDropdown
                         key={list._id}
                         list={list}

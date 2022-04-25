@@ -3,6 +3,7 @@ import { useState } from "react";
 import { BsFillCaretDownFill } from "react-icons/bs";
 import MapCreateDropdown from "./MapCreateDropdown";
 import { useUser } from "@clerk/clerk-react";
+import { AiOutlineCloseSquare } from "react-icons/ai";
 
 function MapCreate({ dataList, setDataList, setShowCreateList, setShowList }) {
   const [listName, setListName] = useState("");
@@ -14,7 +15,6 @@ function MapCreate({ dataList, setDataList, setShowCreateList, setShowList }) {
   const { user } = useUser();
 
   const updateDataState = (data) => {
-    console.log("data of adding into data state", data);
     setDataList((pre) => {
       return [...pre, data];
     });
@@ -22,8 +22,6 @@ function MapCreate({ dataList, setDataList, setShowCreateList, setShowList }) {
 
   const handleSubmitTitle = async (e) => {
     e.preventDefault();
-    console.log(" is selectedColor empty?", selectedColor);
-    console.log(" is setListName empty?", setListName);
 
     if (selectedColor !== "" && setListName !== "") {
       const postData = {
@@ -33,7 +31,6 @@ function MapCreate({ dataList, setDataList, setShowCreateList, setShowList }) {
         createdUser: user.id,
         userName: user.username,
       };
-      console.log("postData", postData);
 
       await axios
         .post("/api/addingOneData", postData)
@@ -85,10 +82,14 @@ function MapCreate({ dataList, setDataList, setShowCreateList, setShowList }) {
   return (
     <div className="bg-transparent p-4 absolute bottom-3 w-full">
       <div className="bg-white rounded-3xl p-2 font-confortaa md:w-2/3 mx-auto lg:w-[43rem] lg:mr-0">
-        <div className=" ">
+        <div className=" flex justify-between items-center ">
           <h2 className="p-5 font-lato font-medium text-2xl">
             Create New List
           </h2>
+          <AiOutlineCloseSquare
+            onClick={() => setShowCreateList(false)}
+            className="text-2xl text-dark-gray hover:text-black mr-3"
+          />
         </div>
         <div className="">
           <form

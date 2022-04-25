@@ -20,15 +20,17 @@ function MapListNestedCard({ item, setDeleteName, userCheck }) {
 
   //   console.log("clicked one list pin", newFocusPoint);
   // };
-  // const handleDelete = (e) => {
-  //   setDeleteName(item.name);
-  // };
+
+  
+  const handleDelete = (e) => {
+    setDeleteName(item.name);
+  };
 
   return (
     <>
       <div className="">
         <div
-          onClick={handleClick}
+          // onClick={handleClick}
           className="w-auto mt-2 ml-10 p-1 flex items-center border border-cream-yellow rounded-md cursor-pointer"
         >
           <div className="w-full p-2 pl-5">

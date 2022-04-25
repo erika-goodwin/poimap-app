@@ -3,9 +3,14 @@ import { Marker, Popup } from "react-map-gl";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { AiTwotoneCheckCircle } from "react-icons/ai";
 
-function Pin({ pin, selectedPin, setSelectedPin }) {
+function Pin({ pin, selectedPin, setSelectedPin, clickedPin }) {
   const [showPopup, setShowPopup] = useState(false);
 
+  useEffect(() => {
+    if (JSON.stringify(clickedPin) !== "{}") {
+      setShowPopup(false);
+    }
+  }, [clickedPin]);
 
   return (
     <>

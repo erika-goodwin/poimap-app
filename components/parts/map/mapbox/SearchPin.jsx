@@ -7,7 +7,7 @@ import { BsFillCaretDownFill } from "react-icons/bs";
 import SearchDropdown from "./SearchDropdown";
 import { SignedIn, SignedOut } from "@clerk/nextjs";
 
-function SearchPin({ searchedResult, dataList, updateData }) {
+function SearchPin({ searchedResult, dataList }) {
   const [showPopup, setShowPopup] = useState(true);
   const [isShowingDropDown, setIsShowingDropDown] = useState(false);
   const [selectedTitleToAdd, setSelectedTitleToAdd] = useState("");
@@ -51,9 +51,6 @@ function SearchPin({ searchedResult, dataList, updateData }) {
     }
   };
 
-  // useState(() => {
-  //   console.log("data of searchpin", data);
-  // }, [data]);
   return (
     <>
       <Marker

@@ -6,7 +6,7 @@ import Geocoder from "react-map-gl-geocoder";
 // import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 import Pin from "./Pin";
-
+import useWindowSize from "../../../../tool/useWindowSize";
 import SearchPin from "./SearchPin";
 import ClickedPin from "./ClickedPin";
 
@@ -22,10 +22,36 @@ function MapBox({ dataList, setDataList, setShowList }) {
   const coordinates = [];
   const pinList = [];
 
-  const geocoderContainerRef = useRef();
   const mapRef = useRef();
+  const geocoderContainerRef = useRef();
+
+  const windowSize = useWindowSize();
 
   // const context = useContext(_MapContext);
+  let styleSearch;
+  if (windowSize.width > 1024) {
+    styleSearch = {
+      position: "absolute",
+      top: "65px",
+      left: "15px",
+      height: 50,
+      background: "black",
+      display: "flex",
+      alignItems: "center",
+      paddingLeft: 4,
+    };
+  } else {
+    styleSearch = {
+      position: "absolute",
+      top: " 110px",
+      left: "15px",
+      height: 50,
+      background: "black",
+      display: "flex",
+      alignItems: "center",
+      paddingLeft: 4,
+    };
+  }
 
   const list = (dataList) =>
     dataList?.map((result) => {
@@ -103,19 +129,10 @@ function MapBox({ dataList, setDataList, setShowList }) {
       latitude: map.lngLat[1],
     };
 
-    if (JSON.stringify(clickedPin) == "{}") {
+
       setClickedPin(clickedCoordinates);
       setShowPopup(true);
-    } else {
-      if (showPopup) {
-        return null;
 
-        // HERE, Need something manage to move the pin when it is empty
-      } else {
-        setClickedPin(clickedCoordinates);
-        setShowPopup(true);
-      }
-    }
   };
 
   const updateDataState = (data) => {
@@ -133,12 +150,11 @@ function MapBox({ dataList, setDataList, setShowList }) {
     setShowList(true);
   };
 
+
+
   return (
     <div className="w-full h-screen z-0 ">
-      <div
-        ref={geocoderContainerRef}
-        // style={{ position: "absolute", top: 200, left: 20, zIndex: 1 }}
-      />
+      <div ref={geocoderContainerRef} style={styleSearch} />
       <Map
         ref={mapRef}
         {...viewState}
@@ -154,7 +170,6 @@ function MapBox({ dataList, setDataList, setShowList }) {
           <SearchPin
             searchedResult={searchedResult}
             dataList={dataList}
-            updateData={updateData}
           />
         )}
         {JSON.stringify(clickedPin) !== "{}" && (
@@ -179,6 +194,7 @@ function MapBox({ dataList, setDataList, setShowList }) {
       </Map>
       <Geocoder
         mapRef={mapRef}
+        containerRef={geocoderContainerRef}
         onViewportChange={handleGeocoderViewportChange}
         mapboxApiAccessToken={process.env.mapbox_key}
         position="top-left"

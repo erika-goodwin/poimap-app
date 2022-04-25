@@ -17,7 +17,7 @@ function MapListListCard({
   const { isSignedIn, user } = useUser();
   const router = useRouter();
 
-  console.log("user", user);
+  // console.log("user", user);
 
   let userCheck;
   if (isSignedIn) {

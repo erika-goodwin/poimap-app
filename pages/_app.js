@@ -2,22 +2,20 @@ import "../styles/globals.css";
 import Layout from "../components/layout/Layout";
 import { ClerkProvider } from "@clerk/nextjs";
 import NextNProgress from "nextjs-progressbar";
+// import { AppWrapper } from "../context/context";
 
-// const progress = new ProgressBar({
-//   size: 4,
-//   color: "#fff",
-//   className: "z-50",
-//   delay: 80,
-// });
+import React, { createContext } from "react";
+
+const MapAppContext = createContext();
 
 function MyApp({ Component, pageProps }) {
-  // // Use the layout defined at the page level, if available
-  // const getLayout = Component.getLayout || ((page) => page);
-
-  // return getLayout(<Component {...pageProps} />);
+  let sharedState = {
+    value: 52,
+  };
 
   return (
     <>
+      {/* <MapAppContext.Provider value={[context, setContext]}> */}
       <NextNProgress
         color="#cebeb9"
         startPosition={0.3}
@@ -25,14 +23,20 @@ function MyApp({ Component, pageProps }) {
         height={4}
         showOnShallow={true}
       />
-      <ClerkProvider
-        {...pageProps}
-        frontendApi={process.env.NEXT_PUBLIC_CLERK_FRONTEND_API}
-      >
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </ClerkProvider>
+      <MapAppContext.Provider value={sharedState}>
+        <ClerkProvider
+          {...pageProps}
+          frontendApi={process.env.NEXT_PUBLIC_CLERK_FRONTEND_API}
+        >
+          <Layout>
+            {/* <AppWrapper> */}
+            {/* <MapAppContext.Provider value={[context, setContext]}> */}
+            <Component {...pageProps} />
+            {/* </MapAppContext.Provider> */}
+            {/* </AppWrapper> */}
+          </Layout>
+        </ClerkProvider>
+      </MapAppContext.Provider>
     </>
   );
 }

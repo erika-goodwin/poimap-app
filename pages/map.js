@@ -6,7 +6,10 @@ import MapBox from "../components/parts/map/mapbox/MapBox";
 import { connectToDatabase } from "../util/mongodb";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { useRouter } from "next/dist/client/router";
-import { useState, useEffect } from "react";
+import { useState, useEffect, createContext } from "react";
+
+
+
 
 function Map({ datas }) {
   const [showCreateList, setShowCreateList] = useState(false);
@@ -17,15 +20,17 @@ function Map({ datas }) {
   const router = useRouter();
   const queryKeyword = router.query;
 
-  useEffect(() => {
-    console.log("showList", showList);
-  }, [showList]);
-  useEffect(() => {
-    console.log("datas: ", datas);
-  }, [datas]);
-  useEffect(() => {
-    console.log("showCreateList", showCreateList);
-  }, [showCreateList]);
+
+
+  // useEffect(() => {
+  //   console.log("showList", showList);
+  // }, [showList]);
+  // useEffect(() => {
+  //   console.log("datas: ", datas);
+  // }, [datas]);
+  // useEffect(() => {
+  //   console.log("showCreateList", showCreateList);
+  // }, [showCreateList]);
 
   return (
     <>

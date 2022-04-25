@@ -1,16 +1,36 @@
+import { useContext } from "react";
 import { TiDeleteOutline } from "react-icons/ti";
+// import { MapAppContext } from "../../../../context/context";
 
 function MapListNestedCard({ item, setDeleteName, userCheck }) {
   // const [showingList, setShowingList] = useState(false);
 
-  const handleDelete = (e) => {
-    setDeleteName(item.name);
-  };
+  // const [context, setContext] = useContext(MapAppContext)
+
+  //WORKING ON HERE NOW
+
+  // console.log("context", context);
+  // console.log("item", item);
+
+  // const handleClick = (e) => {
+  //   const newFocusPoint = {
+  //     longitude: item.long,
+  //     latitude: item.lat,
+  //   };
+
+  //   console.log("clicked one list pin", newFocusPoint);
+  // };
+  // const handleDelete = (e) => {
+  //   setDeleteName(item.name);
+  // };
 
   return (
     <>
       <div className="">
-        <div className="w-auto mt-2 ml-10 p-1 flex items-center border border-cream-yellow rounded-md cursor-pointer">
+        <div
+          onClick={handleClick}
+          className="w-auto mt-2 ml-10 p-1 flex items-center border border-cream-yellow rounded-md cursor-pointer"
+        >
           <div className="w-full p-2 pl-5">
             <h2
               // onClick={() => setShowingList(true)}

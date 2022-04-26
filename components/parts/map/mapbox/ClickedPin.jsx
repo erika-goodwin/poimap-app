@@ -1,10 +1,10 @@
-import React, { useState}  from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { SignedIn, SignedOut } from "@clerk/nextjs";
 import { BsFillCaretDownFill } from "react-icons/bs";
 import SearchDropdown from "./SearchDropdown";
 import Link from "next/link";
-import  { Marker, Popup } from "react-map-gl";
+import { Marker, Popup } from "react-map-gl";
 import { useUser } from "@clerk/clerk-react";
 
 function ClickedPin({
@@ -35,8 +35,6 @@ function ClickedPin({
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("clickedPin / handleSubmit ");
-
     if (selectedTitleToAdd !== "") {
       const postData = {
         title: selectedTitleToAdd,
@@ -47,11 +45,12 @@ function ClickedPin({
           long: clickedPin.longitude,
         },
       };
-
+      let idOfList;
       await axios
         .post("/api/updatingOneData", postData)
         .then((res) => {
-          console.log(res.status);
+          console.log("response status", res.status);
+          idOfList = res.data._id;
         })
         .catch((error) => {
           console.log(error);
@@ -63,32 +62,23 @@ function ClickedPin({
           setPlaceName("");
           setPlaceAddress("");
         });
-      updateDataState(postData);
+
+      updateDataState({
+        ...postData,
+        data: { ...postData.data, _id: idOfList },
+      });
     } else {
       setError("Select a list to add");
     }
   };
 
-  useState(() => {
+  useEffect(() => {
     if (submitButton == "added") {
       setTimeout(() => {
         setSubmitButton("add");
       }, 5000);
     }
     // setIsTyping(false);
-  }, [submitButton]);
-
-  useState(() => {
-    console.log("selectedTitleToAdd", selectedTitleToAdd);
-  }, [selectedTitleToAdd]);
-  useState(() => {
-    console.log("placeName", placeName);
-  }, [placeName]);
-  useState(() => {
-    console.log("  placeAddress ", placeAddress);
-  }, [placeAddress]);
-  useState(() => {
-    console.log("submitButton", submitButton);
   }, [submitButton]);
 
   return (
@@ -159,8 +149,8 @@ function ClickedPin({
                 <div className="flex justify-between">
                   <div className="flex">
                     <button
+                      type="button"
                       onClick={() => {
-                        console.log("drop down click");
                         setIsShowingDropDown(!isShowingDropDown);
                       }}
                       className="inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500"
@@ -174,9 +164,6 @@ function ClickedPin({
 
                   <button
                     type="submit"
-                    onClick={() => {
-                      console.log("clicked submit button");
-                    }}
                     className="w-1/4 px-3 py-1.5 border border-transparent text-xs font-medium rounded-full shadow-sm text-black hover:text-white bg-main-blue hover:bg-light-blue  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:bg-light-blue"
                   >
                     {submitButton}
@@ -205,12 +192,14 @@ function ClickedPin({
             <SignedOut>
               <div className="flex justify-end items-center mt-2">
                 <p className="pr-3 font-lato">Create your POI list</p>
-                <button
-                  type="button"
-                  className="w-1/4 px-3 py-1.5 border border-transparent text-xs font-medium rounded-full shadow-sm text-black hover:text-white  bg-soft-gray hover:bg-dark-gray focus:outline-none focus:ring-2 focus:ring-offset-2 focus:bg-dark-gray"
-                >
-                  <Link href="/sign-in">Sign In</Link>
-                </button>
+                <Link href="/sign-in" passHref>
+                  <button
+                    type="button"
+                    className="w-1/4 px-3 py-1.5 border border-transparent text-xs font-medium rounded-full shadow-sm text-black hover:text-white  bg-soft-gray hover:bg-dark-gray focus:outline-none focus:ring-2 focus:ring-offset-2 focus:bg-dark-gray"
+                  >
+                    Sign In
+                  </button>
+                </Link>
               </div>
             </SignedOut>
           </div>

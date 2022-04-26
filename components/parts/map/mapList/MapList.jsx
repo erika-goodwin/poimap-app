@@ -26,10 +26,7 @@ function MapList({ dataList, setDataList, setShowList }) {
       setClickedList(selectedList);
     }
   }, [dataList, clickedList]);
-  
-  // useEffect(() => {
-  //   console.log("clickedList", clickedList);
-  // }, [clickedList]);
+
 
   return (
     <div className="bg-transparent p-4 absolute bottom-3 w-full z-60 ">

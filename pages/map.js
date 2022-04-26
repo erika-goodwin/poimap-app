@@ -21,17 +21,6 @@ function Map({ datas }) {
   const queryKeyword = router.query;
 
 
-
-  // useEffect(() => {
-  //   console.log("showList", showList);
-  // }, [showList]);
-  // useEffect(() => {
-  //   console.log("datas: ", datas);
-  // }, [datas]);
-  // useEffect(() => {
-  //   console.log("showCreateList", showCreateList);
-  // }, [showCreateList]);
-
   return (
     <>
       <MapBox

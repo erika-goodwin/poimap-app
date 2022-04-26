@@ -151,23 +151,28 @@ function MapBox({ dataList, setDataList, setShowList }) {
   };
 
   const updateDataState = (data) => {
+    console.log("mapbox/ updateDataState ");
+    console.log("data ", data);
+    console.log("data.title ", data.title);
 
-    console.log('mapbox/ updateDataState ')
-    const lestOfObj = dataList.filter((item) => item.title !== data.title);
-    const oneObj = dataList.filter((item) => item.title == data.title);
-    const listToAdd = oneObj[0].list;
-    const addingData = data.data;
+    let initData = dataList;
+    console.log("initData ", dataList);
 
-    console.log('lest of obj, ', lestOfObj, 'One obj, ', oneObj)
+    const indexOfTitle = initData.findIndex(
+      (item) => item.title === data.title
+    );
 
-    listToAdd.push(addingData);
-    lestOfObj.push(listToAdd);
+    let removedOne = initData.splice(indexOfTitle, 1);
+    const listToAdd = removedOne[0].list;
 
-    console.log('listToAdd, ', listToAdd, 'lestOfObj, ', lestOfObj)
+    listToAdd.push(data.data);
+    
+    removedOne[0].list = listToAdd;
+    initData.push(removedOne[0])
 
-    setDataList(lestOfObj);
+    setDataList(initData);
     setClickedPin({});
-
+    setShowList(false);
     setShowList(true);
   };
 

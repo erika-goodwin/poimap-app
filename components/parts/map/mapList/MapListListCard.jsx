@@ -10,6 +10,7 @@ function MapListListCard({
   handleDeleteFromData,
   setClickedList,
 }) {
+  const [deleteListId, setDeleteListId] = useState("");
   const [deleteName, setDeleteName] = useState("");
   const [showingModal, setShowingModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
@@ -22,6 +23,7 @@ function MapListListCard({
   } else {
     userCheck = false;
   }
+
 
   const deleteWholeHandler = async (e) => {
     e.preventDefault();
@@ -51,43 +53,51 @@ function MapListListCard({
   useEffect(() => {
     const deleteHandler = async () => {
       const id = item._id;
-      const deletingName = deleteName;
 
-      const deleteData = {
+      const indexOf = item.list.findIndex((item) => (item._id = deleteListId));
+      const one = item.list.splice(indexOf, 1);
+      const idOfList = one[0]._id;
+
+        const deleteData = {
         id,
-        deletingName,
+        idOfList,
+        deleteName,
       };
 
       setDataList((prev) => {
         return prev.map((itemList) => {
           if (itemList._id === id) {
+         
             const filteredList = itemList.list.filter((item) => {
-              if (item.name === deleteName) {
+              if (item.name === deleteName && item._id === idOfList) {
                 return false;
               }
               return true;
+              
             });
+            console.log("filteredList", filteredList);
             return { ...itemList, list: filteredList };
           }
+          console.log("return itemList", itemList);
           return itemList;
         });
       });
 
-      await axios
-        .post("/api/deletingOneOfList", deleteData)
-        .then((res) => {
-          console.log(res.status);
-        })
-        .catch((error) => {
-          console.log(error);
-          alert("Failed to save");
-        });
+        await axios
+          .post("/api/deletingOneOfList", deleteData)
+          .then((res) => {
+            console.log(res.status);
+          })
+          .catch((error) => {
+            console.log(error);
+            alert("Failed to save");
+          });
     };
 
-    if (deleteName) {
+    if (deleteListId) {
       deleteHandler();
     }
-  }, [deleteName]);
+  }, [deleteListId]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -98,12 +108,13 @@ function MapListListCard({
   return (
     <>
       <div className="p-2 mb-2  ">
-        {item?.list.map((item) => (
+        {item?.list.map((item, index) => (
           <MapListNestedCard
             item={item}
-            key={item.name}
-            setDeleteName={setDeleteName}
+            key={item._id}
+            setDeleteListId={setDeleteListId}
             userCheck={userCheck}
+            setDeleteName={setDeleteName}
           />
         ))}
       </div>

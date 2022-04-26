@@ -1,25 +1,22 @@
-// import { MongoClient } from "mongodb";
+import { ObjectId } from "mongodb";
 import { connectToDatabase, client } from "../../util/mongodb";
 
 export default async function updatingOneData(req, res) {
-
   if (req.method === "POST") {
     const { db } = await connectToDatabase();
 
     let title = req.body.title;
     let data = req.body.data;
-
-    console.log("title", title);
-    console.log("data", data);
+    let id = new ObjectId();
 
     const yourCollection = db.collection("locationList");
     const result = await yourCollection.updateOne(
       { title: title },
-      { $push: { list: data } }
+      { $push: { list: { ...data, _id: id } } }
     );
     console.log("mongodb result", result);
     // client.close();
-    res.status(201).json({ message: "Data inserted successfully!" });
+    res.status(201).json({ message: "Data inserted successfully!", _id: id });
     // return;
   }
 }

@@ -16,7 +16,7 @@ function SearchPin({ setSearchedResult, searchedResult, dataList }) {
 
   const [error, setError] = useState("");
 
-  console.log("SearchPin/datalist", dataList);
+
 
   const { isSignedIn, user } = useUser();
   let newUserList;

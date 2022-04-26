@@ -2,7 +2,12 @@ import { useContext } from "react";
 import { TiDeleteOutline } from "react-icons/ti";
 // import { MapAppContext } from "../../../../context/context";
 
-function MapListNestedCard({ item, setDeleteName, userCheck }) {
+function MapListNestedCard({
+  item,
+  setDeleteListId,
+  userCheck,
+  setDeleteName,
+}) {
   // const [showingList, setShowingList] = useState(false);
 
   // const [context, setContext] = useContext(MapAppContext)
@@ -21,8 +26,8 @@ function MapListNestedCard({ item, setDeleteName, userCheck }) {
   //   console.log("clicked one list pin", newFocusPoint);
   // };
 
-  
   const handleDelete = (e) => {
+    setDeleteListId(item._id);
     setDeleteName(item.name);
   };
 
@@ -41,6 +46,7 @@ function MapListNestedCard({ item, setDeleteName, userCheck }) {
               {item.name}
             </h2>
             <p className="font-lato"> Adress: {item.address}</p>
+            <p className="font-lato"> id: {item._id}</p>
           </div>
 
           <div className="flex items-center">

@@ -10,7 +10,7 @@ function MapListListCard({
   handleDeleteFromData,
   setClickedList,
 }) {
-  const [deleteListId, setDeleteListId] = useState("");
+  // const [deleteListId, setDeleteListId] = useState("");
   const [deleteName, setDeleteName] = useState("");
   const [showingModal, setShowingModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
@@ -24,6 +24,67 @@ function MapListListCard({
     userCheck = false;
   }
 
+  console.log("Maplistlist item", item);
+
+  const deleteHandler = async (id, collectionId, deletedList) => {
+    console.log("===deleteHandler===");
+    console.log("deletedList/deletehandler: ", deletedList);
+
+    const deleteName = deletedList[0].name;
+
+    // const indexOf = item.list.findIndex((item) => (item._id = id));
+    // const one = item.list.splice(indexOf, 1);
+    // const idOfList = one[0]._id;
+
+    const deleteData = {
+      id,
+      collectionId,
+      deleteName,
+    };
+
+    console.log("deleteData", deleteData);
+
+    await axios
+      .post("/api/deletingOneOfList", deleteData)
+      .then((res) => {
+        alert('deleted')
+        console.log(res.status);
+      })
+      .catch((error) => {
+        console.log(error);
+        alert("Failed to save");
+      });
+  };
+
+  const handleDeleteEachNestedCard = (id, collectionId) => {
+    let deletedList;
+    let newList;
+    console.log("===handleDeleteEachNestedCard===");
+    console.log("===id===", id);
+    console.log("===collectionId===", collectionId);
+    setDataList((prev) => {
+      prev.map((itemList) => {
+        if (itemList._id === collectionId) {
+          const list = itemList.list;
+          const indexOf = list.findIndex((item) => item._id == id);
+          const sameList = list.splice(indexOf, 1);
+
+          console.log("same one of the list", sameList);
+          console.log("after list", list);
+
+          deletedList = sameList;
+
+          newList = { ...itemList, list: list };
+        }
+        return itemList;
+      });
+
+      prev.splice(prev.findIndex(item => item._id == collectionId), 1);
+      return [...prev, newList];
+    });
+
+    deleteHandler(id, collectionId, deletedList);
+  };
 
   const deleteWholeHandler = async (e) => {
     e.preventDefault();
@@ -50,54 +111,55 @@ function MapListListCard({
       });
   };
 
-  useEffect(() => {
-    const deleteHandler = async () => {
-      const id = item._id;
+  // useEffect(() => {
+  //   console.log('===useEffect===')
+  //   const deleteHandler = async () => {
+  //     const id = item._id;
 
-      const indexOf = item.list.findIndex((item) => (item._id = deleteListId));
-      const one = item.list.splice(indexOf, 1);
-      const idOfList = one[0]._id;
+  //     const indexOf = item.list.findIndex((item) => (item._id = deleteListId));
+  //     const one = item.list.splice(indexOf, 1);
+  //     const idOfList = one[0]._id;
 
-        const deleteData = {
-        id,
-        idOfList,
-        deleteName,
-      };
+  //       const deleteData = {
+  //       id,
+  //       idOfList,
+  //       deleteName,
+  //     };
 
-      setDataList((prev) => {
-        return prev.map((itemList) => {
-          if (itemList._id === id) {
-         
-            const filteredList = itemList.list.filter((item) => {
-              if (item.name === deleteName && item._id === idOfList) {
-                return false;
-              }
-              return true;
-              
-            });
-            console.log("filteredList", filteredList);
-            return { ...itemList, list: filteredList };
-          }
-          console.log("return itemList", itemList);
-          return itemList;
-        });
-      });
+  //     // setDataList((prev) => {
+  //     //   return prev.map((itemList) => {
+  //     //     if (itemList._id === id) {
 
-        await axios
-          .post("/api/deletingOneOfList", deleteData)
-          .then((res) => {
-            console.log(res.status);
-          })
-          .catch((error) => {
-            console.log(error);
-            alert("Failed to save");
-          });
-    };
+  //     //       const filteredList = itemList.list.filter((item) => {
+  //     //         if (item.name === deleteName && item._id === idOfList) {
+  //     //           return false;
+  //     //         }
+  //     //         return true;
 
-    if (deleteListId) {
-      deleteHandler();
-    }
-  }, [deleteListId]);
+  //     //       });
+  //     //       console.log("filteredList", filteredList);
+  //     //       return { ...itemList, list: filteredList };
+  //     //     }
+  //     //     console.log("return itemList", itemList);
+  //     //     return itemList;
+  //     //   });
+  //     // });
+
+  //       await axios
+  //         .post("/api/deletingOneOfList", deleteData)
+  //         .then((res) => {
+  //           console.log(res.status);
+  //         })
+  //         .catch((error) => {
+  //           console.log(error);
+  //           alert("Failed to save");
+  //         });
+  //   };
+
+  //   if (deleteListId) {
+  //     deleteHandler();
+  //   }
+  // }, [deleteListId]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -108,13 +170,15 @@ function MapListListCard({
   return (
     <>
       <div className="p-2 mb-2  ">
-        {item?.list.map((item, index) => (
+        {item?.list.map((eachItem, index) => (
           <MapListNestedCard
-            item={item}
-            key={item._id}
-            setDeleteListId={setDeleteListId}
+            item={eachItem}
+            key={eachItem._id}
+            // setDeleteListId={setDeleteListId}
             userCheck={userCheck}
-            setDeleteName={setDeleteName}
+            // setDeleteName={setDeleteName}
+            collectionId={item._id}
+            handleDelete={handleDeleteEachNestedCard}
           />
         ))}
       </div>

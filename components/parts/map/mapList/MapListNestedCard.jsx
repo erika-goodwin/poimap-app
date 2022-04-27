@@ -4,10 +4,14 @@ import { TiDeleteOutline } from "react-icons/ti";
 
 function MapListNestedCard({
   item,
-  setDeleteListId,
+  // setDeleteListId,
   userCheck,
-  setDeleteName,
+  // setDeleteName,
+  handleDelete,
+  collectionId
 }) {
+
+
   // const [showingList, setShowingList] = useState(false);
 
   // const [context, setContext] = useContext(MapAppContext)
@@ -26,10 +30,6 @@ function MapListNestedCard({
   //   console.log("clicked one list pin", newFocusPoint);
   // };
 
-  const handleDelete = (e) => {
-    setDeleteListId(item._id);
-    setDeleteName(item.name);
-  };
 
   return (
     <>
@@ -54,7 +54,8 @@ function MapListNestedCard({
               <>
                 {/* <CgEditMarkup className="text-xl text-off-pink mr-2 hover:text-pure-pink" /> */}
                 <TiDeleteOutline
-                  onClick={handleDelete}
+                  // onClick={handleDelete}
+                  onClick={()=>handleDelete(item._id, collectionId)}
                   className="text-2xl text-dark-gray mr-2 hover:text-light-blue"
                 />
               </>

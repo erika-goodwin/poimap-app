@@ -54,6 +54,7 @@ function MapBox({ dataList, setDataList, setShowList }) {
     };
   }
 
+  console.log("dataList color error check: ", dataList);
   const list = (dataList) =>
     dataList?.map((result) => {
       const color = result.color;
@@ -80,7 +81,7 @@ function MapBox({ dataList, setDataList, setShowList }) {
   const [viewState, setViewState] = useState({
     longitude: center.longitude,
     latitude: center.latitude,
-    zoom: 11,
+    zoom: 10,
   });
 
   const handleViewportChange = useCallback(
@@ -166,9 +167,9 @@ function MapBox({ dataList, setDataList, setShowList }) {
     const listToAdd = removedOne[0].list;
 
     listToAdd.push(data.data);
-    
+
     removedOne[0].list = listToAdd;
-    initData.push(removedOne[0])
+    initData.push(removedOne[0]);
 
     setDataList(initData);
     setClickedPin({});

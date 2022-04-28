@@ -1,34 +1,33 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## POI map app 
 
-## Getting Started
+*Pin your favorite location in a town, share it with your friends!*   
 
-First, run the development server:
+![nodeblogapp-pic11](https://user-images.githubusercontent.com/58070973/165789171-582af007-6304-4ae9-8ab4-a240ad7d6498.png)
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+This is a Next.js app with Mapbox's map and Clerk's authorization function. The application is built with my favorite CSS library Tailwindcss. The database is MongoDB. 
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+  - **Speck:** Next.js, Tailwindcss, MongoDB, Mapbox, Clerk
+  
+  - **Check App:** [Check here](https://erika-poimap.vercel.app/)
+  
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+### Why made me create this app?
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+his time's purpose was trying to create something similar application to what I used in daily life. Whenever I’m out just for work or school, I use Google Maps to check the bus time and where to go. The function I often use is making my POI list for where I have been, where I want to visit in the future, and my favorite place to keep my shop name in the list. Therefore, I tried to make a POI map app.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### What was challenging?
 
-## Learn More
+In the end, I settled on using Mapbox for the map. Initially, I tried to implement Google Maps API. I asked for much help from my teacher, and developer friend, however, the only thing I was able to do in a week was showing the map on my app. I got stressed and pressured since I spent too much time only showing the map. From this project, I learned sometimes I need to give up on something and move on. Sometimes we would encounter something we cannot handle YET.  And there is always another way we can achieve our same goal. Using Mapbox was junior-level friendly and people seem to like it as well. I would like to give a gold star for my experience learning from this project.
 
-To learn more about Next.js, take a look at the following resources:
+### Goals for Improvement
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+I regret I didn't implement Redux for this project. I should have designed file structures first to see how big is this project going to be. If so, I could have used Redux for a more approachable and organized data design. My improvement for my next project will be sufficient preparation including mockup design, file structure, database structure, and research of language, libraries, and APIs.      
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+![nodeblogapp-pic12](https://user-images.githubusercontent.com/58070973/165789181-a316eb85-b05a-4d27-b4c7-d966af746686.png)
+
+![nodeblogapp-pic13](https://user-images.githubusercontent.com/58070973/165789183-e1dc1646-3f68-4c41-93a7-901d63a56912.png)
+
+![nodeblogapp-pic14](https://user-images.githubusercontent.com/58070973/165789185-14dd7fa2-dba2-4306-95b7-7a1010972024.png)

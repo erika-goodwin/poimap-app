@@ -6,7 +6,7 @@ _Pin your favorite location in a town, share it with your friends!_
 
 This is a Next.js app with Mapbox's map and Clerk's authorization function. The application is built with my favorite CSS library Tailwindcss. The database is MongoDB.
 
-- **Speck:** Next.js, Tailwindcss, MongoDB, Mapbox, Clerk
+- **Spec:** Next.js, Tailwindcss, MongoDB, Mapbox, Clerk
 
 - **Check App:** [Check here](https://erika-poimap.vercel.app/)
 

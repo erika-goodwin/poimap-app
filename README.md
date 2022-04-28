@@ -12,7 +12,7 @@ This is a Next.js app with Mapbox's map and Clerk's authorization function. The 
 
 ### Why made me create this app?
 
-his time's purpose was trying to create something similar application to what I used in daily life. Whenever I’m out just for work or school, I use Google Maps to check the bus time and where to go. The function I often use is making my POI list for where I have been, where I want to visit in the future, and my favorite place to keep my shop name in the list. Therefore, I tried to make a POI map app.
+This time's purpose was trying to create something similar application to what I used in daily life. Whenever I’m out just for work or school, I use Google Maps to check the bus time and where to go. The function I often use is making my POI list for where I have been, where I want to visit in the future, and my favorite place to keep my shop name in the list. Therefore, I tried to make a POI map app.
 
 ### What was challenging?
 

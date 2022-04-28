@@ -10,8 +10,6 @@ function MapListListCard({
   handleDeleteFromData,
   setClickedList,
 }) {
-
-  
   const [showingModal, setShowingModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
   const router = useRouter();
@@ -24,17 +22,9 @@ function MapListListCard({
     userCheck = false;
   }
 
-  console.log("Maplistlist item", item);
-
   const deleteHandler = async (id, collectionId, deletedList) => {
-    console.log("===deleteHandler===");
-    console.log("deletedList/deletehandler: ", deletedList);
-
-    const deleteName = deletedList[0].name;
-
-    // const indexOf = item.list.findIndex((item) => (item._id = id));
-    // const one = item.list.splice(indexOf, 1);
-    // const idOfList = one[0]._id;
+    const deleteName = deletedList.name;
+    // const deleteName = deletedList[0].name;
 
     const deleteData = {
       id,
@@ -42,12 +32,9 @@ function MapListListCard({
       deleteName,
     };
 
-    console.log("deleteData", deleteData);
-
     await axios
       .post("/api/deletingOneOfList", deleteData)
       .then((res) => {
-        alert('deleted')
         console.log(res.status);
       })
       .catch((error) => {
@@ -58,31 +45,21 @@ function MapListListCard({
 
   const handleDeleteEachNestedCard = (id, collectionId) => {
     let deletedList;
-    let newList;
-    console.log("===handleDeleteEachNestedCard===");
-    console.log("===id===", id);
-    console.log("===collectionId===", collectionId);
     setDataList((prev) => {
-      prev.map((itemList) => {
+      return prev.map((itemList) => {
         if (itemList._id === collectionId) {
-          const list = itemList.list;
-          const indexOf = list.findIndex((item) => item._id == id);
-          const sameList = list.splice(indexOf, 1);
-
-          console.log("same one of the list", sameList);
-          console.log("after list", list);
-
-          deletedList = sameList;
-
-          newList = { ...itemList, list: list };
+          const newItemArrList = itemList.list.filter((eachItem) => {
+            if (eachItem._id === id) {
+              deletedList = eachItem;
+              return false;
+            }
+            return true;
+          });
+          return { ...itemList, list: newItemArrList };
         }
         return itemList;
       });
-
-      prev.splice(prev.findIndex(item => item._id == collectionId), 1);
-      return [...prev, newList];
     });
-
     deleteHandler(id, collectionId, deletedList);
   };
 

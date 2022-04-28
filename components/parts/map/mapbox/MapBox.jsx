@@ -54,7 +54,7 @@ function MapBox({ dataList, setDataList, setShowList }) {
     };
   }
 
-  console.log("dataList color error check: ", dataList);
+
   const list = (dataList) =>
     dataList?.map((result) => {
       const color = result.color;
@@ -131,34 +131,17 @@ function MapBox({ dataList, setDataList, setShowList }) {
       latitude: map.lngLat[1],
     };
 
-    console.log(
-      'JSON.stringify(clickedPin) == "{}"',
-      JSON.stringify(clickedPin) == "{}"
-    );
-    console.log("clickedPin", clickedPin);
-    console.log("showPopup", showPopup);
-    // console.log("isTyping", isTyping);
-
     if (JSON.stringify(clickedPin) == "{}") {
       setClickedPin(clickedCoordinates);
       setShowPopup(true);
-
-      console.log("clickedPin", clickedPin);
-      console.log("showPopup", showPopup);
     } else {
-      // !isTyping && setClickedPin(clickedCoordinates);
       console.log("else");
     }
   };
 
   const updateDataState = (data) => {
-    console.log("mapbox/ updateDataState ");
-    console.log("data ", data);
-    console.log("data.title ", data.title);
-
     let initData = dataList;
-    console.log("initData ", dataList);
-
+   
     const indexOfTitle = initData.findIndex(
       (item) => item.title === data.title
     );

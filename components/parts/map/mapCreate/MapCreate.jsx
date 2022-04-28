@@ -44,7 +44,6 @@ function MapCreate({ dataList, setDataList, setShowCreateList, setShowList }) {
         .finally(() => {
           setListName("");
           setSelectedColor("");
-          console.log("setListName empty done");
         });
 
       updateDataState(postData);

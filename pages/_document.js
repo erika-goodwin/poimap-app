@@ -6,12 +6,7 @@ export default function Document() {
   return (
     <Html>
       <Head>
-        {/* <script
-          src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_MAP_API_KEY}&callback=initMap&libraries=&v=weekly`}
-          async
-        ></script> */}
-
-        <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
+         <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
 
         {/* Font family */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
